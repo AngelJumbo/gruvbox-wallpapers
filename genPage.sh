@@ -12,9 +12,9 @@ echo "<!DOCTYPE html>
 </head>
 
 <body>
-  <h1>Wallpaperss for gruvbox</h1>
+  <h1>Wallpapers for gruvbox</h1>
   <hr>
-  <p> Contrib here: .... </p>" > ./index.html
+  <p> Contrib <a href=\"https://github.com/AngelJumbo/gruvbox-wallpapers\">here</a> </p>" > ./index.html
 
 echo "<h2>IRL</h2>" >>./index.html
 for i in ./wallpapers/irl/*
