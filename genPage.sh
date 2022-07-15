@@ -51,7 +51,13 @@ do
     <img src=\"$i\" alt="$i" width=\"200\">
   </a>" >> ./index.html
 done
-
+echo "<h2>Light</h2>" >>./index.html
+for i in ./wallpapers/light/*
+do
+  echo "  <a target=\"_blank\" href=\"$i\">
+    <img src=\"$i\" alt="$i" width=\"200\">
+  </a>" >> ./index.html
+done
 
 
 echo "</body>
