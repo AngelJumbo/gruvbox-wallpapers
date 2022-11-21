@@ -16,49 +16,18 @@ echo "<!DOCTYPE html>
   <hr>
   <p> Contrib <a href=\"https://github.com/AngelJumbo/gruvbox-wallpapers\">here</a> </p>" > ./index.html
 
-echo "<h2>IRL</h2>" >>./index.html
-for i in ./wallpapers/irl/*
+for i in ./wallpapers/*
 do
-  echo "  <a target=\"_blank\" href=\"$i\">
-    <img loading=\"lazy\" src=\"$i\" alt="$i" width=\"200\">
+  subdir=$i
+  echo "<h2>"${subdir##*/}"</h2>" >> ./index.html
+ 
+  for j in ${subdir}/*
+  do
+    echo "  <a target=\"_blank\" href=\"$j\">
+    <img loading=\"lazy\" src=\"$j\" alt="$j" width=\"200\">
   </a>" >> ./index.html
+  done
 done
-echo "<h2>Minimalistic</h2>" >>./index.html
-for i in ./wallpapers/minimalistic/*
-do
-  echo "  <a target=\"_blank\" href=\"$i\">
-    <img loading=\"lazy\" src=\"$i\" alt="$i" width=\"200\">
-  </a>" >> ./index.html
-done
-echo "<h2>Mix</h2>" >>./index.html
-for i in ./wallpapers/mix/*
-do
-  echo "  <a target=\"_blank\" href=\"$i\">
-    <img loading=\"lazy\" src=\"$i\" alt="$i" width=\"200\">
-  </a>" >> ./index.html
-done
-echo "<h2>Pixelart</h2>" >>./index.html
-for i in ./wallpapers/pixelart/*
-do
-  echo "  <a target=\"_blank\" href=\"$i\">
-    <img loading=\"lazy\" src=\"$i\" alt="$i" width=\"200\">
-  </a>" >> ./index.html
-done
-echo "<h2>Anime</h2>" >>./index.html
-for i in ./wallpapers/anime/*
-do
-  echo "  <a target=\"_blank\" href=\"$i\">
-    <img loading=\"lazy\" src=\"$i\" alt="$i" width=\"200\">
-  </a>" >> ./index.html
-done
-echo "<h2>Light</h2>" >>./index.html
-for i in ./wallpapers/light/*
-do
-  echo "  <a target=\"_blank\" href=\"$i\">
-    <img loading=\"lazy\" src=\"$i\" alt="$i" width=\"200\">
-  </a>" >> ./index.html
-done
-
 
 echo "</body>
 
