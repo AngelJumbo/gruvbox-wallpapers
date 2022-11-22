@@ -1,10 +1,9 @@
 body {
   color: #ebdbb2;
   background-color: #282828;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 15%;
+  padding-right: 15%;
   font-family: "Curier New", monospace;
-  text-align: center;
 }
 
 h1 {
@@ -68,6 +67,7 @@ h2 {
 #c {
   padding: 1em;
   background-color: #665c54;
+  text-align: center;
 }
 
 img {
