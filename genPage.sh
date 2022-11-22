@@ -20,8 +20,7 @@ do
  
 
 
-  echo "<h2" >> ./index.html
-  echo "id=s"$n">" >> ./index.html
+  echo "<h2 id=s"$n">" >> ./index.html
   echo "${subdir##*/}" | tr a-z A-Z  >> ./index.html
   echo "</h2>" >> ./index.html
   
