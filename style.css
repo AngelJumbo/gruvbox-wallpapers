@@ -1,9 +1,10 @@
 body {
   color: #ebdbb2;
-	background-color: #282828;
-  padding-left: 10em;
-  padding-right: 10em;
+  background-color: #282828;
+  padding-left: 10%;
+  padding-right: 10%;
   font-family: "Curier New", monospace;
+  text-align: center;
 }
 
 h1 {
@@ -65,13 +66,12 @@ h2 {
 /* } */
 
 #c {
-  text-align: center;
   padding: 1em;
   background-color: #665c54;
 }
 
 img {
-	transition: all .2s ease-in-out; 
+  transition: all .2s ease-in-out; 
   /* border: 2px solid #ebdbb2; */
   /* padding: 5px; */
 }
@@ -82,3 +82,4 @@ img:hover {
   /* padding: none; */
 
 }
+
