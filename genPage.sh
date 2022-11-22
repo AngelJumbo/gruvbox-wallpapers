@@ -13,30 +13,28 @@ echo "<!DOCTYPE html>
 
 <body>
   <h1>Wallpapers for gruvbox</h1>" > ./index.html
-n=1
-for i in ./wallpapers/*
+
+color=1
+for subdir in ./wallpapers/*
 do
-  subdir=$i
- 
 
-
-  echo "<h2 id=s"$n">" >> ./index.html
+  echo "<h2 id=s"$color">" >> ./index.html
   echo "${subdir##*/}" | tr a-z A-Z  >> ./index.html
   echo "</h2>" >> ./index.html
   
   echo "<div id=c>" >> ./index.html
 
-  for j in ${subdir}/*
+  for wallpaper in ${subdir}/*
   do
-    echo "  <a target=\"_blank\" href=\"$j\">
-    <img loading=\"lazy\" src=\"$j\" alt="$j" width=\"200\"></a>" >> ./index.html
+    echo "  <a target=\"_blank\" href=\"$wallpaper\">
+    <img loading=\"lazy\" src=\"$wallpaper\" alt="$wallpaper" width=\"200\"></a>" >> ./index.html
   done
   
   echo "</div>" >> ./index.html
 
-  n=$((n+1))
-  if [ "$n" -eq 8 ]; then
-    n=1
+  color=$((color+1))
+  if [ "$color" -eq 8 ]; then
+    color=1
   fi
 done
 
