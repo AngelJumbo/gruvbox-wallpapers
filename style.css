@@ -1,15 +1,83 @@
 body {
   color: #ebdbb2;
 	background-color: #282828;
+  padding-left: 10em;
+  padding-right: 10em;
+  font-family: "Curier New", monospace;
 }
 
+h1 {
+  background-color: #ebdbb2;
+  color: #282828;
+  text-align: center;
+  text-decoration: none;
+}
+
+h2 {
+  background-color: #ebdbb2;
+  color: #282828;
+  text-align: center;
+  text-decoration: none;
+}
+
+#s1 {
+  background-color: #d65d0e;
+}
+#s2 {
+  background-color: #cc241d;
+}
+#s3 {
+  background-color: #98971a;
+}
+#s4 {
+  background-color: #d79921;
+}
+#s5 {
+  background-color: #458588;
+}
+#s6 {
+  background-color: #b16286;
+}
+#s7 {
+  background-color: #689d6a;
+}
+
+/* #c1 { */
+/*   background-color: #fe8019; */
+/* } */
+/* #c2 { */
+/*   background-color: #fb4934; */
+/* } */
+/* #c3 { */
+/*   background-color: #b8bb26; */
+/* } */
+/* #c4 { */
+/*   background-color: #fabd2f; */
+/* } */
+/* #c5 { */
+/*   background-color: #83a598; */
+/* } */
+/* #c6 { */
+/*   background-color: #d3869b; */
+/* } */
+/* #c7 { */
+/*   background-color: #8ec807; */
+/* } */
+
+#c {
+  padding: 1em;
+  background-color: #665c54;
+}
 
 img {
 	transition: all .2s ease-in-out; 
-  border: 2px solid #ebdbb2;
-  padding: 5px;
+  /* border: 2px solid #ebdbb2; */
+  /* padding: 5px; */
 }
 img:hover {
-  transform: scale(1.5); 
-  /*box-shadow: 5px 4px 10px #8B0000;*/
+  transform: scale(2.5); 
+  border: none;
+  box-shadow: 5px 4px 10px #000000;
+  /* padding: none; */
+
 }
