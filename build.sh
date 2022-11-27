@@ -1,5 +1,25 @@
 #!/bin/sh
 
+# MIT License
+# Copyright (c) 2022 Angel Jumbo <anarjumb@protonmail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 touch ./index.html
 
 echo "<!DOCTYPE html>
@@ -27,12 +47,12 @@ do
   count=1;
   for wallpaper in ${subdir}/*
   do
-    if [ "$count" -lt 11 ]; then #limit the amount of images per section in index
+    if [ "$count" -lt 9 ]; then #limit the amount of images per section in index
       echo "  <a target=\"_blank\" href=\"$wallpaper\">
       <img loading=\"lazy\" src=\"$wallpaper\" alt="$wallpaper" width=\"200\"></a>" >> ./index.html
       count=$((count+1))
     else #if the limit is exceeded then create a new html with all the images of the section
-      # TODO: make this part cleaner, this is really ugly.
+      # TODO: make this part cleaner, this is really ugly!!.
       subhtml="${subdir##*/}.html"
       nimgs=$(ls "${subdir}" | wc -l)
       echo "  <a target=\"_blank\" class = \"showmore\" href=\"${subhtml}\">
