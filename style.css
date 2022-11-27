@@ -20,6 +20,19 @@ h2 {
   text-decoration: none;
 }
 
+a {
+  color: #ebdbb2;
+  /* background-color: #ebdbb2; */
+  /* color: #282828; */
+}
+
+.showmore{
+  text-align: center;
+  background-color: #ebdbb2;
+  color: #282828;
+  /* border: 2px solid #ebdbb2; */
+}
+
 #s1 {
   background-color: #d65d0e;
 }
