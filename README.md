@@ -1,6 +1,6 @@
 # Gruvbox Wallpapers
 A place where to find gruvbox theme wallpapers.
-[https://gruvbox-wallpapers.onrender.com/](https://gruvbox-wallpapers.onrender.com/ 'Gruvbox Wallpapers')
+[https://gruvbox-wallpapers.pages.dev/](https://gruvbox-wallpapers.pages.dev/ 'Gruvbox Wallpapers')
 ## Contributions
 
 1. Fork the project.
