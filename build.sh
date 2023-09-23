@@ -50,9 +50,6 @@ write_img(){
 #not really a footer, it's just the end of the page.
 write_footer(){
       echo "<p> Contributions <a href=\"https://github.com/AngelJumbo/gruvbox-wallpapers\">here</a>.</p>
-<p> This images are from random sites or contributions so I don't have a way to know who are their original artist.</p>
-<p> I want to keep this site as simple as possible, but if you are the creator of any of these images and you want acknowledgment I will happily add a section with your name. Just open an issue <a href=\"https://github.com/AngelJumbo/gruvbox-wallpapers/issues\">here</a>.</p>
-<p> The same goes, if you want me to remove your art.</p>
 </body>
 </html>" >> $1
 
