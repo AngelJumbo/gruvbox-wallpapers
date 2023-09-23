@@ -49,7 +49,7 @@ write_img(){
 
 #not really a footer, it's just the end of the page.
 write_footer(){
-      echo "<p> Contributions <a href=\"https://github.com/AngelJumbo/gruvbox-wallpapers\">here</a>.</p>
+      echo "<p> Contributions!! <a href=\"https://github.com/AngelJumbo/gruvbox-wallpapers\">here</a>.</p>
 </body>
 </html>" >> $1
 
