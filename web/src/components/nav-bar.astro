@@ -1,0 +1,70 @@
+---
+import { getCategories } from "../services/internal/get-categories";
+const categories = await getCategories();
+
+const { category = "" } = Astro.params;
+---
+
+<header
+  class="h-16 bg-[#eadbad] flex items-center justify-between px-2 sticky top-0 left-0 z-50"
+>
+  <a href="/">
+    <h1 class="text-[#282828] font-bold text-2xl">Gruvbox Wallpapers</h1>
+  </a>
+
+  <ul class="flex gap-1 text-[#282828] capitalize" id="nav-bar">
+    <!-- Effect -->
+    <span
+      id="effect"
+      class="absolute rounded-md bg-[#282828] w-[var(--width)] h-[var(--height)] top-[var(--top)] left-[var(--left)] duration-300 ease-in-out -z- opacity-[var(--opacity)] scale-[var(--scale)]"
+    ></span>
+    <!-- Effect -->
+
+    {
+      categories?.map(({ name }) => {
+        const styles =
+          name.toLowerCase() === category.toLocaleLowerCase()
+            ? "bg-[#282828] text-[#e7dba8]"
+            : "bg-[transparent] text-[text-[#282828]] hover:text-[#e7dba8]";
+
+        return (
+          <li>
+            <a
+              id="link"
+              href={`/wallpapers/${name}`}
+              class={`py-2 px-3 rounded-md ${styles} relative z-10 duration-300`}
+            >
+              {name}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</header>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const $links = document.querySelectorAll("#link");
+    const $effect = document.getElementById("effect");
+
+    $links.forEach((item) => {
+      item.addEventListener("mouseenter", (event) => {
+        const { y, x, height, width } = item.getBoundingClientRect();
+
+        $effect?.style.setProperty("--opacity", `1`);
+        $effect?.style.setProperty("--scale", "1");
+
+        $effect?.style.setProperty("--width", `${width}px`);
+        $effect?.style.setProperty("--height", `${height}px`);
+        $effect?.style.setProperty("--top", `${y}px`);
+        $effect?.style.setProperty("--left", `${x}px`);
+      });
+
+      item.addEventListener("mouseleave", () => {
+        $effect?.style.setProperty("--opacity", "0");
+        $effect?.style.setProperty("--scale", "0.8");
+      });
+    });
+  });
+</script>

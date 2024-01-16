@@ -1,0 +1,75 @@
+---
+import Footer from "../components/footer.astro";
+import NavBar from "../components/nav-bar.astro";
+import { ViewTransitions } from "astro:transitions";
+import "photoswipe/style.css";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ViewTransitions />
+	</head>
+	<body>
+		<NavBar />
+		<slot />
+
+		<Footer />
+
+		<script>
+			import PhotoSwipe from "photoswipe";
+			import PhotoSwipeLightbox from "photoswipe/lightbox";
+			import "photoswipe/style.css";
+
+			document.addEventListener("astro:page-load", () => {
+				const lightbox = new PhotoSwipeLightbox({
+					gallery: "#my-gallery",
+					children: "#wallpapers",
+					pswpModule: PhotoSwipe,
+				});
+
+				lightbox.init();
+			});
+		</script>
+
+		<script>
+			document.addEventListener("astro:page-load", () => {
+				setTimeout(() => {
+					const $wallpapers = document.querySelectorAll("#wallpapers");
+
+					$wallpapers.forEach((item) => {
+						const $image = item.firstElementChild;
+
+						// @ts-ignore
+						const { naturalWidth, naturalHeight } = $image;
+
+						item.setAttribute("data-pswp-width", naturalWidth);
+						item.setAttribute("data-pswp-height", naturalHeight);
+					});
+				}, 1000);
+			});
+		</script>
+
+		<style is:global>
+			:root {
+				color-scheme: light dark;
+				--bg-color: #282828;
+			}
+			body {
+				background-color: var(--bg-color);
+			}
+		</style>
+	</body>
+</html>

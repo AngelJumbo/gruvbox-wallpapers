@@ -1,0 +1,22 @@
+---
+import { getAllWallpapers } from "../services/internal/get-all-wallpapers";
+
+import Gallery from "./gallery.astro";
+
+const allWallpapers = await getAllWallpapers();
+---
+
+<section class="max-w-screen-2xl m-auto">
+  {
+    //@ts-ignore
+    allWallpapers?.map(({ status, value }) => {
+      return (
+        <Gallery
+          category={value.category}
+          wallpapers={value.wallpapers}
+          total_results={value.total_results}
+        />
+      );
+    })
+  }
+</section>

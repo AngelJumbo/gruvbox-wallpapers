@@ -1,0 +1,23 @@
+---
+import type { Gallery } from "../types";
+import GalleryGrid from "./gallery-grid.astro";
+
+const { category, wallpapers, total_results } = Astro.props as Gallery;
+---
+
+<section>
+  <header
+    class="sticky top-16 left-0 h-14 bg-[#282828bb] backdrop-blur-md flex items-center justify-start pl-3 z-10"
+  >
+    <h2 class="font-bold text-2xl capitalize">{category}</h2>
+  </header>
+
+  <GalleryGrid
+    gallery={wallpapers}
+    isPreview={{
+      status: true,
+      redirectToCategory: category,
+      countResults: total_results,
+    }}
+  />
+</section>

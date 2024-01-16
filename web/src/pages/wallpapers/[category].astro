@@ -1,0 +1,19 @@
+---
+import GalleryGrid from "../../components/gallery-grid.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getWallpapers } from "../../services/internal/get-wallpapers";
+
+const { category } = Astro.params;
+const data = await getWallpapers({ name: `${category}` });
+---
+
+<Layout title={`wallpapers - ${category}`}>
+  <main>
+    <h2 class="py-4 text-center text-4xl font-bold">
+      Wallpapers
+      {category}
+    </h2>
+
+    <GalleryGrid gallery={data?.wallpapers} />
+  </main>
+</Layout>

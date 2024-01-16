@@ -1,0 +1,54 @@
+---
+import type { Gallery, Wallpaper } from "../types";
+
+interface Props {
+  gallery: Wallpaper[] | undefined;
+
+  isPreview?: {
+    status: boolean;
+    redirectToCategory: string;
+    countResults: Gallery["total_results"];
+  };
+}
+
+const { gallery, isPreview } = Astro.props;
+const IMAGES_FOR_PREVIEW = 4;
+---
+
+<article
+  class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 px-3"
+  id="my-gallery"
+>
+  {
+    gallery?.slice(0, IMAGES_FOR_PREVIEW).map(({ download_url, name }) => {
+      return (
+        <a
+          href={download_url}
+          class="h-52 rounded-md overflow-hidden  p-2 border-2 border-[#695c51]"
+          id="wallpapers"
+          data-cropped="true"
+        >
+          <img
+            src={download_url}
+            alt={name}
+            class="w-full h-full object-cover  relative z-[1]"
+            loading="lazy"
+          />
+        </a>
+      );
+    })
+  }
+  {
+    isPreview?.status && (
+      <a
+        href={`/wallpapers/${isPreview?.redirectToCategory}`}
+        class="h-52 w-full border-2 border-[#695c51] rounded-md flex items-center justify-center text-4xl font-bold overflow-hidden"
+      >
+        +
+        {Number(isPreview?.countResults) <= IMAGES_FOR_PREVIEW
+          ? Number(isPreview?.countResults)
+          : Number(isPreview?.countResults) - IMAGES_FOR_PREVIEW}
+      </a>
+    )
+  }
+</article>
