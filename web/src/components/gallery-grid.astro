@@ -43,12 +43,42 @@ const { gallery, isPreview } = Astro.props;
       <a
         href={`/wallpapers/${isPreview?.redirectToCategory}`}
         class="h-52 w-full border-2 border-[#695c51] rounded-md flex items-center justify-center text-4xl font-bold overflow-hidden"
+        id="more-images"
       >
-        +
         {Number(isPreview?.countResults) <= IMAGES_FOR_PREVIEW
-          ? Number(isPreview?.countResults)
-          : Number(isPreview?.countResults) - IMAGES_FOR_PREVIEW}
+          ? "+" + Number(isPreview?.countResults)
+          : "+" + (Number(isPreview?.countResults) - IMAGES_FOR_PREVIEW)}
       </a>
     )
   }
 </article>
+
+<style>
+  #more-images {
+    -webkit-text-fill-color: #282828;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #eadbad;
+  }
+  a {
+    view-timeline-name: --image;
+    view-timeline-axis: block;
+
+    animation-timeline: --image;
+    animation-name: show;
+
+    animation-range: entry 25% cover 50%;
+    animation-fill-mode: both;
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
