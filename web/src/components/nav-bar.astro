@@ -10,13 +10,67 @@ const allCategoryStyles = handleCategoryActive(category, ALL_CATEGORIES);
 ---
 
 <header
-  class="h-16 bg-[#eadbad] flex items-center justify-between px-2 sticky top-0 left-0 z-50"
+  class="h-16 bg-[#eadbad] flex items-center justify-center md:justify-between px-2 sticky top-0 left-0 z-50"
 >
   <a href="/">
     <h1 class="text-[#282828] font-bold text-2xl">Gruvbox Wallpapers</h1>
   </a>
 
-  <ul class="flex gap-1 text-[#282828] capitalize" id="nav-bar">
+  <input type="checkbox" id="checkbox-btn" class="md:hidden" />
+  <label
+    for="checkbox-btn"
+    id="hamburguer"
+    class="size-16 fixed bottom-2 right-2 border-2 border-[#695c51] rounded-full z-20 flex items-center justify-center md:hidden duration-300"
+  >
+    <svg
+      class="stroke-[#eadbad]"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke="currentColor"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+        d="M4 6l16 0"></path><path d="M4 12l16 0"></path><path d="M4 18l16 0"
+      ></path></svg
+    >
+  </label>
+
+  <ul
+    id="nav-bar-mobile"
+    class="duration-300 fixed top-0 left-0 w-[70%] text-[#282828] h-dvh bg-[#eadbadef] flex flex-col items-center justify-center gap-4 z-10 md:hidden"
+  >
+    <li>
+      <a
+        id="link"
+        href="/"
+        class={`capitalize py-2 px-3 rounded-md ${allCategoryStyles} relative z-10 duration-300`}
+      >
+        {ALL_CATEGORIES}
+      </a>
+    </li>
+    {
+      categories?.map((name) => {
+        const styles = handleCategoryActive(category, name);
+
+        return (
+          <li>
+            <a
+              id="link"
+              href={`/wallpapers/${name}`}
+              class={`capitalize py-2 px-3 rounded-md ${styles} hover:bg-[#282828] hover:text-[#eadbad] relative z-10 duration-300`}
+            >
+              {name}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+
+  <ul class="gap-1 text-[#282828] capitalize hidden md:flex" id="nav-bar">
     <!-- Effect -->
     <span
       id="effect"
@@ -82,3 +136,22 @@ const allCategoryStyles = handleCategoryActive(category, ALL_CATEGORIES);
     });
   });
 </script>
+
+<style>
+  #checkbox-btn {
+    display: none;
+  }
+
+  #checkbox-btn:not(:checked) ~ #nav-bar-mobile {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  #checkbox-btn:checked ~ label {
+    transform: rotate(90deg);
+  }
+  #checkbox-btn:checked ~ #nav-bar-mobile {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
