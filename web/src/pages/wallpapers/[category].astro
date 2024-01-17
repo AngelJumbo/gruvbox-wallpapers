@@ -12,10 +12,9 @@ const { wallpapers, category } = (await getWallpapers({
 ---
 
 <Layout title={`wallpapers - ${category}`}>
-  <main>
-    <h2 class="py-4 text-center text-4xl font-bold">
-      Wallpapers
-      {category}
+  <main class="h-full min-h-dvh">
+    <h2 class="py-4 text-center text-4xl font-bold capitalize text-[#e7dba8]">
+      {category ? category : "this resource does not exist :("}
     </h2>
 
     <GalleryGrid gallery={wallpapers} />
