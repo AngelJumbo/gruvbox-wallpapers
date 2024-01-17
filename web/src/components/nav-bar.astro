@@ -1,8 +1,8 @@
 ---
-import { getCategories } from "../services/internal/get-categories";
-const categories = await getCategories();
+import { getCategories } from "@services/get-categories";
 
 const { category = "" } = Astro.params;
+const categories = await getCategories();
 ---
 
 <header
@@ -21,7 +21,7 @@ const { category = "" } = Astro.params;
     <!-- Effect -->
 
     {
-      categories?.map(({ name }) => {
+      categories?.map((name) => {
         const styles =
           name.toLowerCase() === category.toLocaleLowerCase()
             ? "bg-[#282828] text-[#e7dba8]"

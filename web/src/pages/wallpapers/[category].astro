@@ -1,10 +1,14 @@
 ---
+import { getWallpapers } from "@services/get-wallpapers";
 import GalleryGrid from "../../components/gallery-grid.astro";
 import Layout from "../../layouts/Layout.astro";
-import { getWallpapers } from "../../services/internal/get-wallpapers";
+import type { Gallery } from "src/types";
 
-const { category } = Astro.params;
-const data = await getWallpapers({ name: `${category}` });
+const { category: currentCategory } = Astro.params;
+
+const { wallpapers, category } = (await getWallpapers({
+  category: currentCategory ?? "",
+})) as Gallery;
 ---
 
 <Layout title={`wallpapers - ${category}`}>
@@ -14,6 +18,6 @@ const data = await getWallpapers({ name: `${category}` });
       {category}
     </h2>
 
-    <GalleryGrid gallery={data?.wallpapers} />
+    <GalleryGrid gallery={wallpapers} />
   </main>
 </Layout>
