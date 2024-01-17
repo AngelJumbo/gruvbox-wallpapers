@@ -1,5 +1,6 @@
 ---
 import type { Gallery, Wallpaper } from "../types";
+import { IMAGES_FOR_PREVIEW } from "@lib/constants/index";
 
 interface Props {
   gallery: Wallpaper[] | undefined;
@@ -12,7 +13,6 @@ interface Props {
 }
 
 const { gallery, isPreview } = Astro.props;
-const IMAGES_FOR_PREVIEW = 4;
 ---
 
 <article
@@ -20,7 +20,7 @@ const IMAGES_FOR_PREVIEW = 4;
   id="my-gallery"
 >
   {
-    gallery?.slice(0, IMAGES_FOR_PREVIEW).map(({ download_url, name }) => {
+    gallery?.map(({ download_url, name }) => {
       return (
         <a
           href={download_url}

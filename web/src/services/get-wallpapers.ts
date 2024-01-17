@@ -4,18 +4,19 @@ import type { Gallery, GithubResponseType } from "src/types";
 
 export async function getWallpapers({
 	category,
-}: { category: string }): Promise<Gallery | null[]> {
+	limit = 10,
+}: { category: string; limit?: number }): Promise<Gallery | null[]> {
 	try {
 		const apiUrl = generateWallpapersApiUrl(category);
 		const res = await fetch(apiUrl, FETCH_CONFIG);
 		const json = (await res.json()) as GithubResponseType[];
 
-		const wallpapers = formatWallpapers(json);
+		const wallpapers = formatWallpapers(json).slice(0, limit);
 
 		return {
 			wallpapers,
 			category,
-			total_results: wallpapers.length,
+			total_results: json.length,
 		};
 	} catch (error) {
 		return [];
