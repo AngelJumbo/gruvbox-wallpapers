@@ -1,8 +1,12 @@
 ---
 import { getCategories } from "@services/get-categories";
+import { ALL_CATEGORIES } from "@lib/constants";
+import { handleCategoryActive } from "@lib/utils/handle-category-active";
 
-const { category = "" } = Astro.params;
+const { category = ALL_CATEGORIES } = Astro.params;
 const categories = await getCategories();
+
+const allCategoryStyles = handleCategoryActive(category, ALL_CATEGORIES);
 ---
 
 <header
@@ -21,11 +25,21 @@ const categories = await getCategories();
     <!-- Effect -->
 
     {
+      (
+        <li>
+          <a
+            id="link"
+            href="/"
+            class={`py-2 px-3 rounded-md ${allCategoryStyles} relative z-10 duration-300`}
+          >
+            {ALL_CATEGORIES}
+          </a>
+        </li>
+      )
+    }
+    {
       categories?.map((name) => {
-        const styles =
-          name.toLowerCase() === category.toLocaleLowerCase()
-            ? "bg-[#282828] text-[#e7dba8]"
-            : "bg-[transparent] text-[text-[#282828]] hover:text-[#e7dba8]";
+        const styles = handleCategoryActive(category, name);
 
         return (
           <li>
