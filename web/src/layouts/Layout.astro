@@ -22,7 +22,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 		<ViewTransitions />
 	</head>
-	<body>
+	<body class="overflow-x-hidden">
 		<NavBar />
 		<slot />
 
@@ -38,6 +38,41 @@ const { title } = Astro.props;
 					gallery: "#my-gallery",
 					children: "#wallpapers",
 					pswpModule: PhotoSwipe,
+				});
+
+				/**
+				 * Download button
+				 * docs -> https://photoswipe.com/adding-ui-elements/#adding-download-button
+				 */
+
+				lightbox.on("uiRegister", function () {
+					//@ts-ignore
+					lightbox.pswp.ui.registerElement({
+						name: "download-button",
+						order: 8,
+						isButton: true,
+						tagName: "a",
+
+						// SVG with outline
+						html: {
+							isCustomSVG: true,
+							inner:
+								'<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="pswp__icn-download"/>',
+							outlineID: "pswp__icn-download",
+						},
+
+						onInit: (el, pswp) => {
+							el.setAttribute("download", "");
+							el.setAttribute("target", "_blank");
+							el.setAttribute("rel", "noopener");
+
+							pswp.on("change", () => {
+								console.log("change");
+								//@ts-ignore
+								el.href = pswp.currSlide.data.src;
+							});
+						},
+					});
 				});
 
 				lightbox.init();
@@ -63,6 +98,27 @@ const { title } = Astro.props;
 		</script>
 
 		<style is:global>
+			/* Firefox */
+			* {
+				scrollbar-width: auto;
+				scrollbar-color: #e7dba8 #282828;
+			}
+
+			/* Other browsers */
+			*::-webkit-scrollbar {
+				width: 13px;
+			}
+
+			*::-webkit-scrollbar-track {
+				background: #282828;
+			}
+
+			*::-webkit-scrollbar-thumb {
+				background-color: #e7dba8;
+				border-radius: 0px;
+				border: 1px none #000000;
+			}
+
 			:root {
 				color-scheme: light dark;
 				--bg-color: #282828;
