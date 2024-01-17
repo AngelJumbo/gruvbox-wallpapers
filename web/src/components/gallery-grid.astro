@@ -16,7 +16,7 @@ const { gallery, isPreview } = Astro.props;
 ---
 
 <article
-  class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 px-3"
+  class="grid md:grid-cols-3 xl:grid-cols-4  gap-4 px-3"
   id="my-gallery"
 >
   {
@@ -24,7 +24,7 @@ const { gallery, isPreview } = Astro.props;
       return (
         <a
           href={download_url}
-          class="h-52 rounded-md overflow-hidden  p-2 border-2 border-[#695c51]"
+          class="h-52 w-full rounded-md overflow-hidden  p-2 border-2 border-[#695c51]"
           id="wallpapers"
           data-cropped="true"
         >
@@ -44,10 +44,9 @@ const { gallery, isPreview } = Astro.props;
         href={`/wallpapers/${isPreview?.redirectToCategory}`}
         class="h-52 w-full border-2 border-[#695c51] rounded-md flex items-center justify-center text-4xl font-bold overflow-hidden"
         id="more-images"
+        style={{display: Number(isPreview.countResults) < IMAGES_FOR_PREVIEW ? "none" : "flex"}}
       >
-        {Number(isPreview?.countResults) <= IMAGES_FOR_PREVIEW
-          ? "+" + Number(isPreview?.countResults)
-          : "+" + (Number(isPreview?.countResults) - IMAGES_FOR_PREVIEW)}
+        { "+" + (Number(isPreview?.countResults) - IMAGES_FOR_PREVIEW)}
       </a>
     )
   }
