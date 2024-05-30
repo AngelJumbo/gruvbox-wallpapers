@@ -63,9 +63,30 @@ img {
 }
 
 img:hover {
-  transform: scale(2.5); 
+  transform: scale(1.5); 
   border: none;
   box-shadow: 5px 4px 10px #000000;
 
 }
+
+.pager {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.pager button {
+  background-color: #ebdbb2; 
+  border: none; 
+  color: #282828; 
+  padding: 10px 20px; 
+  text-align: center; 
+  text-decoration: none; 
+  display: inline-block; 
+  font-size: 16px; 
+  font-weight: 900;
+  margin: 4px 2px; 
+  cursor: pointer; 
+  border-radius: 8px; 
+}
+
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # MIT License
 # Copyright (c) 2022 Angel Jumbo <anarjumb@protonmail.com>
@@ -20,8 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
-#not really a header, it's just the begining of the page.
+# Write the header
 write_header(){
   echo "<!DOCTYPE html>
 <html lang=\"en\">
@@ -30,96 +29,128 @@ write_header(){
   <meta charset=\"utf-8\">
   <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
   <title>Gruvbox wallpapers</title>
+  <script>
+    function loadPage(section, page) {
+      fetch(section + '_page' + page + '.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById(section + '-content').innerHTML = data;
+        });
+    }
+  
+
+  </script>
 </head>
 
 <body>
-  <h1>Wallpapers for gruvbox</h1>" > $1
+  <h1>Wallpapers for Gruvbox</h1>" > $1
 }
 
 write_section_header(){
-  echo "<h2 id=s"$1">" >> $3
+  echo "<h2 id=\"s$1\" onclick=\"activeSection('$2')\" >" >> $3
   echo "$2" | tr a-z A-Z  >> $3
   echo "</h2>" >> $3
 }
 
 write_img(){
   echo "  <a target=\"_blank\" href=\"$1\">
-<img loading=\"lazy\" src=\"$1\" alt="$1" width=\"200\"></a>" >> $2
+<img loading=\"lazy\" src=\"$1\" alt=\"$1\" width=\"200\"></a>" >> $2
 }
 
-#not really a footer, it's just the end of the page.
 write_footer(){
-      echo "<p> Contributions!! <a href=\"https://github.com/AngelJumbo/gruvbox-wallpapers\">here</a>.</p>
+  echo "<p> Contributions!! <a href=\"https://github.com/AngelJumbo/gruvbox-wallpapers\">here</a>.</p>
 </body>
 </html>" >> $1
-
 }
 
-#create index file
 touch ./index.html
 
-#write the begining of the index file
 write_header ./index.html
 
-#color of the section headers 
-#there are 7 colors and these are defined in the style.css 
-#with the ids: s1, s2 .... s7
 color=1
+
+maxPerPage=8 
+
+declare -a sections
 
 for subdir in ./wallpapers/*
 do
-  #for each folder in the wallpapers directory we first write a section header
-  write_section_header $color "${subdir##*/}" ./index.html
-  
-  echo "<div id=c>" >> ./index.html
-  
-  count=1;
+  section="${subdir##*/}"
+  sections+=("$section")
+  write_section_header $color "$section" ./index.html
+
+
+  page=1
+  img_count=0
+  subhtml="${section}_page${page}.html"
+  touch ./$subhtml
+
+  echo "<div id=\"$section\">" >> ./index.html
+
+  echo "<div class=\"pager\">" >> ./index.html
+  countImgs=$(find "$subdir" -type f | wc -l)
+  countImgs=$((countImgs - 1))
+  for i in $(seq 1 $((( $countImgs / $maxPerPage)+1))); do
+    echo "<button onclick=\"loadPage('$section', $i)\">$i</button>" >> ./index.html
+  done
+  echo "</div>" >> ./index.html
+  echo "<div id=\"$section-content\">" >> ./index.html
+  echo "<div id=\"c\">" >> ./$subhtml
   for wallpaper in ${subdir}/*
   do
-    #write each image of each folder in the Wallpapers directory
-    if [ "$count" -lt 9 ]; then #limit the amount of images per section in index
-      write_img $wallpaper ./index.html
-      count=$((count+1))
-    else #if the limit is exceeded then create a new html with all the images of the section
-            
-      subhtml="${subdir##*/}.html"
-      #count the amount of images in the folder
-      nimgs=$(ls "${subdir}" | wc -l)
-      #make a link to the new page
-      echo "  <a target=\"_blank\" class = \"showmore\" href=\"${subhtml}\">
-      <div class = \"showmore\">show all ${nimgs} ${subdir##*/} wallpapers </div></a>" >> ./index.html      
-      
-      touch "$subhtml"
-      
-      write_header $subhtml
+    if [ "$img_count" -ge $maxPerPage ]; then
 
-      write_section_header $color "${subdir##*/}" $subhtml
+      echo "</div>" >> ./$subhtml
+      page=$((page + 1))
+      subhtml="${section}_page${page}.html"
+      touch ./$subhtml
 
 
-      echo "<div id=c>" >> "${subhtml}"
-      #write all the images of the current section
-      for wallpaper2 in ${subdir}/*
-      do
-        write_img $wallpaper2 $subhtml
-      done
-
-      echo "</div>" >> "${subhtml}"
-
-      write_footer $subhtml
-      #break current loop and continue to the next section
-      break
+      echo "<div id=\"c\">" >> ./$subhtml
+      img_count=0
     fi
-    
+
+    write_img $wallpaper ./$subhtml
+    img_count=$((img_count + 1))
   done
-  
+
+  echo "</div>" >> ./$subhtml
+
+  echo "</div>" >> ./index.html
   echo "</div>" >> ./index.html
 
-  color=$((color+1))
-  #there are only 7 colors, if there are more than 7 folders in the wallpapers folder
-  #then repeat the colors
+  color=$((color + 1))
   if [ "$color" -eq 8 ]; then 
     color=1
   fi
 done
+
+echo "<script>
+  window.onload = function myFunc() {" >> ./index.html
+
+for section in "${sections[@]}"; do
+  echo "    loadPage('$section', 1);
+  
+    document.getElementById('$section').style.display = \"none\";
+  " >> ./index.html
+done
+
+echo "  
+
+  document.getElementById(\"${sections[0]}\").style.display = \"block\";
+}
+  function activeSection(section){">> ./index.html
+
+for section in "${sections[@]}"; do
+  echo "
+  
+    document.getElementById('$section').style.display = \"none\";
+  " >> ./index.html
+done
+  echo "  document.getElementById(section).style.display = \"block\";
+document.getElementById(section).focus();
+  }
+</script>" >> ./index.html
+
 
 write_footer ./index.html
