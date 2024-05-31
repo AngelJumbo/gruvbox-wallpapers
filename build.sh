@@ -58,7 +58,7 @@ write_header(){
 </head>
 
 <body>
-  <h1>Wallpapers for Gruvbox</h1>" > $1
+  <h1>Gruvbox Wallpapers</h1>" > $1
 }
 
 write_section_header(){

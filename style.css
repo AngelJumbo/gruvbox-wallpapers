@@ -78,8 +78,9 @@ img:hover {
   padding: 5px;
   /*border-radius: 8px; */
   color: #282828; 
-  display: flex;
-  justify-content: center;
+  /*display: flex;
+  justify-content: center;*/
+  text-align: center;
 }
 
 .pager button {
@@ -93,7 +94,6 @@ img:hover {
   font-size: 16px; 
   font-weight: 900;
   margin: 4px 2px; 
-  margin-right: 10px;
   cursor: pointer; 
   /*border-radius: 8px; */
 }
