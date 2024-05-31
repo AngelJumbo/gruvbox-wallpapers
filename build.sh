@@ -100,7 +100,7 @@ do
   subhtml="${section}_page${page}.html"
   touch ./$subhtml
 
-  echo "<div id=\"$section\">" >> ./index.html
+  echo "<div id=\"$section\" style={display : \"none\"}>" >> ./index.html
 
   echo "<div class=\"pager\">" >> ./index.html
   countImgs=$(find "$subdir" -type f | wc -l)
