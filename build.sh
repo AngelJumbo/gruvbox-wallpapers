@@ -47,7 +47,7 @@ write_header(){
 }
 
 write_section_header(){
-  echo "<h2 id=\"s$1\" onclick=\"activeSection('$2')\" >" >> $3
+  echo "<h2 id=\"s$1\" class=\"clickable\" onclick=\"activeSection('$2')\" >" >> $3
   echo "$2" | tr a-z A-Z  >> $3
   echo "</h2>" >> $3
 }
@@ -91,7 +91,7 @@ do
   countImgs=$(find "$subdir" -type f | wc -l)
   countImgs=$((countImgs - 1))
   for i in $(seq 1 $((( $countImgs / $maxPerPage)+1))); do
-    echo "<button onclick=\"loadPage('$section', $i)\">$i</button>" >> ./index.html
+    echo "<button class=\"clickable\" onclick=\"loadPage('$section', $i)\">$i</button>" >> ./index.html
   done
   echo "</div>" >> ./index.html
   echo "<div id=\"$section-content\">" >> ./index.html
