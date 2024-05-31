@@ -98,6 +98,16 @@ img:hover {
   /*border-radius: 8px; */
 }
 
+.sel-btn{
+  background-color: #282828 !important;
+  border-color: #ebdbb2 !important;
+  color: #ebdbb2 !important;
+  border-width: thick !important;
+  border-style: solid !important;
+}
+
+
+
 .clickable {
   cursor: pointer;
 }

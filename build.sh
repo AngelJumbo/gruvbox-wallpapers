@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Write the header
 write_header(){
   echo "<!DOCTYPE html>
 <html lang=\"en\">
@@ -31,14 +30,30 @@ write_header(){
   <title>Gruvbox wallpapers</title>
   <script>
     function loadPage(section, page) {
+      let buttons = document.getElementById(section ).getElementsByTagName('button');
+      let currSel;
+      for(let i in buttons){
+        if(buttons[i].classList?.contains('sel-btn')){
+          if(page-1 == i)
+            return;
+          else{
+            currSel = buttons[i];
+            break;
+          }
+        }
+
+      }
+
       fetch(section + '_page' + page + '.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById(section + '-content').innerHTML = data;
+          if (currSel){
+            currSel.classList.remove('sel-btn');
+          }
+          document.getElementById(section).getElementsByTagName('button')[page-1].classList.add('sel-btn');
         });
     }
-  
-
   </script>
 </head>
 
@@ -130,20 +145,17 @@ echo "<script>
 
 for section in "${sections[@]}"; do
   echo "    loadPage('$section', 1);
-  
     document.getElementById('$section').style.display = \"none\";
   " >> ./index.html
 done
 
 echo "  
-
   document.getElementById(\"${sections[0]}\").style.display = \"block\";
 }
   function activeSection(section){">> ./index.html
 
 for section in "${sections[@]}"; do
   echo "
-  
     document.getElementById('$section').style.display = \"none\";
   " >> ./index.html
 done
