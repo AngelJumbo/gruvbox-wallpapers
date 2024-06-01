@@ -63,7 +63,7 @@ write_header(){
 }
 
 write_section_header(){
-  echo "<h2 id=\"s$1\" class=\"clickable\" onclick=\"activeSection('$2')\" >" >> $3
+  echo "<h2 class=\"clickable\ s$1\" onclick=\"activeSection('$2')\" >" >> $3
   echo "$2" | tr a-z A-Z  >> $3
   echo "</h2>" >> $3
 }

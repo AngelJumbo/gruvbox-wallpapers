@@ -37,31 +37,31 @@ h2 {
   color: var(--fg-color-reverse);
 }
 
-#s1 {
+.s1 {
   background-color: #d65d0e;
 }
 
-#s2 {
+.s2 {
   background-color: #cc241d;
 }
 
-#s3 {
+.s3 {
   background-color: #98971a;
 }
 
-#s4 {
+.s4 {
   background-color: #d79921;
 }
 
-#s5 {
+.s5 {
   background-color: #458588;
 }
 
-#s6 {
+.s6 {
   background-color: #b16286;
 }
 
-#s7 {
+.s7 {
   background-color: #689d6a;
 }
 
