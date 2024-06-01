@@ -142,7 +142,7 @@ do
 done
 
 echo "<script>
-  window.onload = function myFunc() {" >> ./index.html
+  window.onload = () => {" >> ./index.html
 
 for section in "${sections[@]}"; do
   echo "    loadPage('$section', 1);
