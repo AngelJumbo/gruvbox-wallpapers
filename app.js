@@ -21,3 +21,17 @@ function loadPage(section, page) {
             document.getElementById(section).getElementsByTagName("button")[page - 1].classList.add("sel-btn");
         });
 }
+
+function activeSection(section) {
+    hideAll();
+
+    const targetSection = document.getElementById(section);
+    targetSection.style.display = "block";
+    targetSection.focus();
+}
+
+function hideAll() {
+    document.querySelectorAll(".section").forEach((s) => {
+        s.style.display = "none";
+    });
+}

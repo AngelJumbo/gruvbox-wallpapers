@@ -65,7 +65,7 @@ h2 {
   background-color: #689d6a;
 }
 
-#c {
+.c {
   padding: 1em;
   background-color: var(--bg-color-3);
   text-align: center;
@@ -119,4 +119,8 @@ img:hover {
 
 .clickable {
   cursor: pointer;
+}
+
+.section {
+  display: none;
 }
