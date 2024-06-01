@@ -26,36 +26,10 @@ write_header(){
 
 <head>
   <meta charset=\"utf-8\">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name='viewport' content='idth=device-width, initial-scale=1.0'>
   <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
   <title>Gruvbox wallpapers</title>
-  <script>
-    function loadPage(section, page) {
-      let buttons = document.getElementById(section ).getElementsByTagName('button');
-      let currSel;
-      for(let i in buttons){
-        if(buttons[i].classList?.contains('sel-btn')){
-          if(page-1 == i)
-            return;
-          else{
-            currSel = buttons[i];
-            break;
-          }
-        }
-
-      }
-
-      fetch(section + '_page' + page + '.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById(section + '-content').innerHTML = data;
-          if (currSel){
-            currSel.classList.remove('sel-btn');
-          }
-          document.getElementById(section).getElementsByTagName('button')[page-1].classList.add('sel-btn');
-        });
-    }
-  </script>
+  <script src='app.js' defer></script>
 </head>
 
 <body>
