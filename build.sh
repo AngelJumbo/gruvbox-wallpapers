@@ -117,7 +117,6 @@ done
 
 echo "<script>
   window.onload = () => {" >> ./index.html
-echo "console.log('fuck');" >> ./index.html
 echo "hideAll();" >> ./index.html
 for section in "${sections[@]}"; do
   echo "    loadPage('$section', 1);" >> ./index.html
