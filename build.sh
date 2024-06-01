@@ -26,35 +26,10 @@ write_header(){
 
 <head>
   <meta charset=\"utf-8\">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
   <title>Gruvbox wallpapers</title>
-  <script>
-    function loadPage(section, page) {
-      let buttons = document.getElementById(section ).getElementsByTagName('button');
-      let currSel;
-      for(let i in buttons){
-        if(buttons[i].classList?.contains('sel-btn')){
-          if(page-1 == i)
-            return;
-          else{
-            currSel = buttons[i];
-            break;
-          }
-        }
-
-      }
-
-      fetch(section + '_page' + page + '.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById(section + '-content').innerHTML = data;
-          if (currSel){
-            currSel.classList.remove('sel-btn');
-          }
-          document.getElementById(section).getElementsByTagName('button')[page-1].classList.add('sel-btn');
-        });
-    }
-  </script>
+  <script src='app.js'></script>
 </head>
 
 <body>
@@ -62,7 +37,7 @@ write_header(){
 }
 
 write_section_header(){
-  echo "<h2 id=\"s$1\" class=\"clickable\" onclick=\"activeSection('$2')\" >" >> $3
+  echo "<h2 class=\"clickable s$1\" onclick=\"activeSection('$2')\" >" >> $3
   echo "$2" | tr a-z A-Z  >> $3
   echo "</h2>" >> $3
 }
@@ -100,7 +75,7 @@ do
   subhtml="${section}_page${page}.html"
   touch ./$subhtml
 
-  echo "<div id=\"$section\" style={display : \"none\"}>" >> ./index.html
+  echo "<div class='section' id=\"$section\">" >> ./index.html
 
   echo "<div class=\"pager\">" >> ./index.html
   countImgs=$(find "$subdir" -type f | wc -l)
@@ -109,8 +84,8 @@ do
     echo "<button class=\"clickable\" onclick=\"loadPage('$section', $i)\">$i</button>" >> ./index.html
   done
   echo "</div>" >> ./index.html
-  echo "<div id=\"$section-content\">" >> ./index.html
-  echo "<div id=\"c\">" >> ./$subhtml
+  echo "<div  id=\"$section-content\">" >> ./index.html
+  echo "<div class='c'>" >> ./$subhtml
   for wallpaper in ${subdir}/*
   do
     if [ "$img_count" -ge $maxPerPage ]; then
@@ -121,7 +96,7 @@ do
       touch ./$subhtml
 
 
-      echo "<div id=\"c\">" >> ./$subhtml
+      echo "<div class='c'>" >> ./$subhtml
       img_count=0
     fi
 
@@ -141,27 +116,17 @@ do
 done
 
 echo "<script>
-  window.onload = function myFunc() {" >> ./index.html
-
+  window.onload = () => {" >> ./index.html
+echo "console.log('fuck');" >> ./index.html
+echo "hideAll();" >> ./index.html
 for section in "${sections[@]}"; do
-  echo "    loadPage('$section', 1);
-    document.getElementById('$section').style.display = \"none\";
-  " >> ./index.html
+  echo "    loadPage('$section', 1);" >> ./index.html
 done
 
-echo "  
-  document.getElementById(\"${sections[0]}\").style.display = \"block\";
+echo "
+  activeSection(\"${sections[0]}\");
 }
-  function activeSection(section){">> ./index.html
 
-for section in "${sections[@]}"; do
-  echo "
-    document.getElementById('$section').style.display = \"none\";
-  " >> ./index.html
-done
-  echo "  document.getElementById(section).style.display = \"block\";
-document.getElementById(section).focus();
-  }
 </script>" >> ./index.html
 
 
