@@ -27,7 +27,9 @@ function activeSection(section) {
 
     const targetSection = document.getElementById(section);
     targetSection.style.display = "block";
-    targetSection.focus();
+    setTimeout(()=>{
+    targetSection.scrollIntoView({ block: "start", behavior: "smooth" });
+    },100)
 }
 
 function hideAll() {
