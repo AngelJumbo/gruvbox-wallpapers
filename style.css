@@ -19,7 +19,7 @@ body {
   font-family: "Curier New", monospace;
 }
 
-* {
+*:not( i ) {
   color: var(--fg-color);
 }
 
@@ -123,4 +123,28 @@ img:hover {
 
 .section {
   display: none;
+}
+
+.float-btns{
+  position: fixed;
+  /*top: 80%;*/
+  bottom: 10px;
+  right: 35px;
+}
+
+.float-btn{
+  background-color: var(--bg-color-reverse);
+  border: none;
+  color: var(--fg-color-reverse);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.float-btn span{
+  font-size: 1.5rem;
+  color: var(--fg-color-reverse);
 }

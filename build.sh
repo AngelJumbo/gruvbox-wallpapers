@@ -20,21 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-write_header(){
-  echo "<!DOCTYPE html>
-<html lang=\"en\">
-
-<head>
-  <meta charset=\"utf-8\">
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
-  <title>Gruvbox wallpapers</title>
-  <script src='app.js'></script>
-</head>
-
-<body>
-  <h1>Gruvbox Wallpapers</h1>" > $1
-}
 
 write_section_header(){
   echo "<h2 class=\"clickable s$1\" onclick=\"activeSection('$2')\" >" >> $3
@@ -47,15 +32,40 @@ write_img(){
 <img loading=\"lazy\" src=\"$1\" alt=\"$1\" width=\"200\"></a>" >> $2
 }
 
-write_footer(){
-  echo "<p> Contributions!! <a href=\"https://github.com/AngelJumbo/gruvbox-wallpapers\">here</a>.</p>
-</body>
-</html>" >> $1
-}
+rm *.html
 
 touch ./index.html
 
-write_header ./index.html
+echo "<!DOCTYPE html>
+<html lang=\"en\">
+
+<head>
+  <meta charset=\"utf-8\">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
+  <title>Gruvbox wallpapers</title>
+  <script src='app.js'></script>
+  <script src="https://kit.fontawesome.com/13865d7982.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class=\"float-btns\">
+    <button onclick=\"location.href='https://github.com/AngelJumbo/gruvbox-wallpapers'\" class=\"float-btn clickable\" >
+      <span>
+        <i class=\"fa-brands fa-github\"></i>
+      </span>
+    </button>
+    <br />
+    <button onclick=switchTheme() class=\"float-btn clickable\">
+      <span>
+        <i class=\"fa-solid fa-sun\" ></i>
+        <i class=\"fa-solid fa-moon\" style=\"display:none\"></i>
+      </span>
+    </button>
+
+  </div>
+
+  <h1>Gruvbox Wallpapers</h1>" > ./index.html
 
 color=1
 
@@ -124,9 +134,15 @@ done
 
 echo "
   activeSection(\"${sections[0]}\");
+  if(!window.matchMedia(\"(prefers-color-scheme: dark)\").matches){
+    document.getElementsByClassName(\"fa-sun\")[0].style.display = \"none\";
+    document.getElementsByClassName(\"fa-moon\")[0].style.display = \"block\";
+  }
 }
 
 </script>" >> ./index.html
 
 
-write_footer ./index.html
+echo "
+</body>
+</html>" >> ./index.html

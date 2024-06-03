@@ -35,3 +35,18 @@ function hideAll() {
         s.style.display = "none";
     });
 }
+
+
+function switchTheme(){
+    let currTheme = document.documentElement.style.getPropertyValue('color-scheme');
+    console.log(currTheme);
+    if (currTheme == "dark") {
+        document.getElementsByClassName("fa-sun")[0].style.display = "none";
+        document.getElementsByClassName("fa-moon")[0].style.display = "block";
+        document.documentElement.style.setProperty('color-scheme', 'light');
+    } else {
+        document.getElementsByClassName("fa-moon")[0].style.display = "none";
+        document.getElementsByClassName("fa-sun")[0].style.display = "block";
+        document.documentElement.style.setProperty('color-scheme', 'dark');
+    }
+}
