@@ -11,6 +11,22 @@
   --bg-color-3-switch: light-dark(#665c54, #bdae93);
   --bg-color-hard: light-dark(#f9f5d7, #1d2021);
   --gray: light-dark(#7c6f64, #a89984);
+
+  --orange: #d65d0e;
+  --red: #cc241d;
+  --green: #98971a;
+  --yellow: #d79921;
+  --blue: #458588;
+  --purple: #b16286;
+  --aqua: #689d6a;
+
+  --orange-dim: light-dark(#af3a03, #fe8019);
+  --red-dim: light-dark(#9d0006, #fb4934);
+  --green-dim: light-dark(#79740e, #b8bb26);
+  --yellow-dim: light-dark(#b57614, #fabd2f);
+  --blue-dim: light-dark(#076678, #83a598);
+  --purple-dim: light-dark(#8f3f71, #d3869d);
+  --aqua-dim: light-dark(#427b58, #8ec07c);
 }
 
 body {
@@ -39,39 +55,74 @@ h2 {
   color: var(--fg-color-reverse);
 }
 
+h2 {
+  cursor: pointer;
+}
+
+.s {
+  transition: all 0.7s ease-in-out;
+}
+
 .s1 {
-  background-color: #d65d0e;
+  background-color: var(--orange);
+
+  &:hover {
+    background-color: var(--orange-dim);
+  }
 }
 
 .s2 {
-  background-color: #cc241d;
+  background-color: var(--red);
+
+  &:hover {
+    background-color: var(--red-dim);
+  }
 }
 
 .s3 {
-  background-color: #98971a;
+  background-color: var(--green);
+
+  &:hover {
+    background-color: var(--green-dim);
+  }
 }
 
 .s4 {
-  background-color: #d79921;
+  background-color: var(--yellow);
+
+  &:hover {
+    background-color: var(--yellow-dim);
+  }
 }
 
 .s5 {
-  background-color: #458588;
+  background-color: var(--blue);
+
+  &:hover {
+    background-color: var(--blue-dim);
+  }
 }
 
 .s6 {
-  background-color: #b16286;
+  background-color: var(--purple);
+
+  &:hover {
+    background-color: var(--purple-dim);
+  }
 }
 
 .s7 {
-  background-color: #689d6a;
+  background-color: var(--aqua);
+
+  &:hover {
+    background-color: var(--aqua-dim);
+  }
 }
 
 .c {
   padding: 1em;
   background-color: var(--bg-color-3);
   text-align: center;
-  /*border-radius: 8px; */
 }
 
 img {
