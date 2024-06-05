@@ -89,7 +89,7 @@ do
   countImgs=$(find "$subdir" -type f | wc -l)
   countImgs=$((countImgs - 1))
   for i in $(seq 1 $((( $countImgs / $maxPerPage)+1))); do
-    echo "<button class='btn pager-btn' onclick='loadPage('$section', $i)'>$i</button>" >> ./index.html
+    echo "<button class='btn pager-btn' onclick='loadPage(\"$section\", $i)'>$i</button>" >> ./index.html
   done
   echo "</div>" >> ./index.html
   echo "<div  id='$section-content'>" >> ./index.html
