@@ -49,20 +49,8 @@ echo "<!DOCTYPE html>
 </head>
 
 <body>
-  <div class='float-btns'>
-    <a href='https://github.com/AngelJumbo/gruvbox-wallpapers' target='_blank' class='btn float-btn' title='Source code' >
-      <span>
-        <i class='fa-brands fa-github'></i>
-      </span>
-    </a>
-    <button onclick='switchTheme()' class='btn float-btn' title='Switch theme'>
-      <span>
-        <i id='light-icon' class='fa-solid fa-sun'></i>
-        <i id='dark-icon' class='fa-solid fa-moon'></i>
-      </span>
-    </button>
-  </div>
-
+  
+  <main>
   <h1>Gruvbox Wallpapers</h1>" > ./index.html
 
 color=1
@@ -122,7 +110,7 @@ do
     color=1
   fi
 done
-
+echo "</main>" >> ./index.html
 echo "<script>
   window.onload = () => {" >> ./index.html
 echo "hideAll();" >> ./index.html
@@ -136,6 +124,22 @@ echo "
 }
 </script>" >> ./index.html
 
+echo "
+<sidebar class='float-container'>
+  <div class='float-btns'>
+    <a href='https://github.com/AngelJumbo/gruvbox-wallpapers' target='_blank' class='btn float-btn' title='Source code' >
+      <span>
+        <i class='fa-brands fa-github'></i>
+      </span>
+    </a>
+    <button onclick='switchTheme()' class='btn float-btn' title='Switch theme'>
+      <span>
+        <i id='light-icon' class='fa-solid fa-sun'></i>
+        <i id='dark-icon' class='fa-solid fa-moon'></i>
+      </span>
+    </button>
+  </div>
+  </sidebar>" >> ./index.html
 
 echo "
 </body>

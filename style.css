@@ -31,10 +31,60 @@
 
 body {
   background-color: var(--bg-color);
-  padding-left: 15%;
-  padding-right: 15%;
+  container-type: inline-size;
   font-family: "Curier New", monospace;
+  margin: 0;
+  min-height: 100svh;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  /* height: 100svh; */
+
+}
+
+@container (min-width: 640px) {
+  main {
+    padding-left: 4rem;
+    padding-right: 4rem;
+
+  }
+}
+
+@container (min-width: 768px) {
+  main {
+    padding-left: 8rem;
+    padding-right: 8rem;
+
+  }
+}
+
+@container (min-width: 1024px) {
+  main {
+    padding-left: 12rem;
+    padding-right: 12rem;
+
+  }
+}
+
+@container (min-width: 1280px) {
+  main {
+    padding-left: 14rem;
+    padding-right: 14rem;
+
+  }
+}
+
+@container (min-width: 1536px) {
+  main {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+}
+
 
 * {
   color: var(--fg-color);
@@ -186,13 +236,27 @@ img:hover {
   display: none;
 }
 
+.float-container {
+
+  position: sticky;
+  top: 0;
+  /* width: 100vw; */
+  /* height: 100vh; */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-content: centers;
+}
+
 .float-btns {
-  position: fixed;
-  bottom: 1rem;
-  right: 2rem;
+  /* position: static; */
+  margin-bottom: 1rem;
+  margin-right: 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  justify-content: end;
 }
 
 .btn.float-btn {
