@@ -60,7 +60,7 @@ h2 {
 }
 
 .s {
-  transition: all 0.7s ease-in-out;
+  transition: background 0.7s ease-in-out;
 }
 
 .s1 {
@@ -145,6 +145,8 @@ img:hover {
 }
 
 .btn {
+  transition: background 0.4s ease-in-out;
+
   cursor: pointer;
   background-color: var(--bg-color-reverse);
   color: var(--fg-color-reverse);
