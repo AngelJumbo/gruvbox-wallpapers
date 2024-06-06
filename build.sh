@@ -137,6 +137,9 @@ echo "
   if(!window.matchMedia(\"(prefers-color-scheme: dark)\").matches){
     document.getElementsByClassName(\"fa-sun\")[0].style.display = \"none\";
     document.getElementsByClassName(\"fa-moon\")[0].style.display = \"block\";
+    document.documentElement.style.setProperty('color-scheme', 'light');
+  }else{
+    document.documentElement.style.setProperty('color-scheme', 'dark');
   }
 }
 
