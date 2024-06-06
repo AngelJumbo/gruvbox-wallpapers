@@ -26,7 +26,8 @@ function activeSection(section) {
     hideAll();
 
     const targetSection = document.getElementById(section);
-    targetSection.style.display = "block";
+    targetSection.focus();
+    targetSection.classList.add("selected");
     setTimeout(() => {
         targetSection.scrollIntoView({ block: "start", behavior: "smooth" });
     }, 100);
@@ -34,7 +35,8 @@ function activeSection(section) {
 
 function hideAll() {
     document.querySelectorAll(".section").forEach((s) => {
-        s.style.display = "none";
+        s.classList.remove("selected");
+        // s.style.display = "none";
     });
 }
 const HIDDEN_CLASS = "hidden";

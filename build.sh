@@ -125,7 +125,7 @@ echo "
 </script>" >> ./index.html
 
 echo "
-<sidebar class='float-container'>
+<footer>
   <div class='float-btns'>
     <a href='https://github.com/AngelJumbo/gruvbox-wallpapers' target='_blank' class='btn float-btn' title='Source code' >
       <span>
@@ -139,7 +139,7 @@ echo "
       </span>
     </button>
   </div>
-  </sidebar>" >> ./index.html
+  </footer>" >> ./index.html
 
 echo "
 </body>
