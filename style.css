@@ -68,6 +68,7 @@ h2 {
 
 .s {
   transition: background 0.7s ease-in-out;
+  margin-bottom: 0;
 }
 
 .s1 {

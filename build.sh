@@ -45,7 +45,7 @@ echo "<!DOCTYPE html>
   <link rel='stylesheet' type='text/css' href='style.css'>
   <title>Gruvbox wallpapers</title>
   <script src='app.js' defer></script>
-  <script src="https://kit.fontawesome.com/13865d7982.js" crossorigin="anonymous" defer></script>
+  <script src='https://kit.fontawesome.com/13865d7982.js' crossorigin='anonymous' defer></script>
 </head>
 
 <body>
