@@ -22,14 +22,14 @@
 
 
 write_section_header(){
-  echo "<h2 class=\"clickable s$1\" onclick=\"activeSection('$2')\" >" >> $3
+  echo "<h2 class='s s$1' onclick='activeSection(\"$2\")' >" >> $3
   echo "$2" | tr a-z A-Z  >> $3
   echo "</h2>" >> $3
 }
 
 write_img(){
-  echo "  <a target=\"_blank\" href=\"$1\">
-<img loading=\"lazy\" src=\"$1\" alt=\"$1\" width=\"200\"></a>" >> $2
+  echo "  <a target='_blank' href='$1'>
+<img loading='lazy' src='$1' alt='$1' width='200'></a>" >> $2
 }
 
 rm *.html
@@ -37,34 +37,20 @@ rm *.html
 touch ./index.html
 
 echo "<!DOCTYPE html>
-<html lang=\"en\">
+<html lang='en'>
 
 <head>
-  <meta charset=\"utf-8\">
+  <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
+  <link rel='stylesheet' type='text/css' href='style.css'>
   <title>Gruvbox wallpapers</title>
-  <script src='app.js'></script>
-  <script src="https://kit.fontawesome.com/13865d7982.js" crossorigin="anonymous"></script>
+  <script src='app.js' defer></script>
+  <script src="https://kit.fontawesome.com/13865d7982.js" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
-  <div class=\"float-btns\">
-    <button onclick=\"location.href='https://github.com/AngelJumbo/gruvbox-wallpapers'\" class=\"float-btn clickable\" >
-      <span>
-        <i class=\"fa-brands fa-github\"></i>
-      </span>
-    </button>
-    <br />
-    <button onclick=switchTheme() class=\"float-btn clickable\">
-      <span>
-        <i class=\"fa-solid fa-sun\" ></i>
-        <i class=\"fa-solid fa-moon\" style=\"display:none\"></i>
-      </span>
-    </button>
-
-  </div>
-
+  
+  <main>
   <h1>Gruvbox Wallpapers</h1>" > ./index.html
 
 color=1
@@ -85,16 +71,16 @@ do
   subhtml="${section}_page${page}.html"
   touch ./$subhtml
 
-  echo "<div class='section' id=\"$section\">" >> ./index.html
+  echo "<div class='section' id='$section'>" >> ./index.html
 
-  echo "<div class=\"pager\">" >> ./index.html
+  echo "<div class='pager'>" >> ./index.html
   countImgs=$(find "$subdir" -type f | wc -l)
   countImgs=$((countImgs - 1))
   for i in $(seq 1 $((( $countImgs / $maxPerPage)+1))); do
-    echo "<button class=\"clickable\" onclick=\"loadPage('$section', $i)\">$i</button>" >> ./index.html
+    echo "<button class='btn pager-btn' onclick='loadPage(\"$section\", $i)'>$i</button>" >> ./index.html
   done
   echo "</div>" >> ./index.html
-  echo "<div  id=\"$section-content\">" >> ./index.html
+  echo "<div  id='$section-content'>" >> ./index.html
   echo "<div class='c'>" >> ./$subhtml
   for wallpaper in ${subdir}/*
   do
@@ -124,27 +110,36 @@ do
     color=1
   fi
 done
-
+echo "</main>" >> ./index.html
 echo "<script>
   window.onload = () => {" >> ./index.html
 echo "hideAll();" >> ./index.html
+echo "initColorTheme();" >> ./index.html
 for section in "${sections[@]}"; do
   echo "    loadPage('$section', 1);" >> ./index.html
 done
 
 echo "
-  activeSection(\"${sections[0]}\");
-  if(!window.matchMedia(\"(prefers-color-scheme: dark)\").matches){
-    document.getElementsByClassName(\"fa-sun\")[0].style.display = \"none\";
-    document.getElementsByClassName(\"fa-moon\")[0].style.display = \"block\";
-    document.documentElement.style.setProperty('color-scheme', 'light');
-  }else{
-    document.documentElement.style.setProperty('color-scheme', 'dark');
-  }
+  activeSection('${sections[0]}');
 }
-
 </script>" >> ./index.html
 
+echo "
+<footer>
+  <div class='float-btns'>
+    <a href='https://github.com/AngelJumbo/gruvbox-wallpapers' target='_blank' class='btn float-btn' title='Source code' >
+      <span>
+        <i class='fa-brands fa-github'></i>
+      </span>
+    </a>
+    <button onclick='switchTheme()' class='btn float-btn' title='Switch theme'>
+      <span>
+        <i id='light-icon' class='fa-solid fa-sun'></i>
+        <i id='dark-icon' class='fa-solid fa-moon'></i>
+      </span>
+    </button>
+  </div>
+  </footer>" >> ./index.html
 
 echo "
 </body>

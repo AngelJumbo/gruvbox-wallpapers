@@ -1,26 +1,51 @@
+@import url("/layout.css");
+
 :root {
   color-scheme: light dark;
   --bg-color: light-dark(#fbf1c7, #282828);
   --fg-color: light-dark(#3c3836, #ebdbb2);
 
-
   --bg-color-reverse: light-dark(#3c3836, #ebdbb2);
   --fg-color-reverse: light-dark(#fbf1c7, #282828);
 
   --bg-color-3: light-dark(#bdae93, #665c54);
+  --bg-color-3-switch: light-dark(#665c54, #bdae93);
   --bg-color-hard: light-dark(#f9f5d7, #1d2021);
   --gray: light-dark(#7c6f64, #a89984);
+
+  --orange: #d65d0e;
+  --red: #cc241d;
+  --green: #98971a;
+  --yellow: #d79921;
+  --blue: #458588;
+  --purple: #b16286;
+  --aqua: #689d6a;
+
+  --orange-dim: light-dark(#af3a03, #fe8019);
+  --red-dim: light-dark(#9d0006, #fb4934);
+  --green-dim: light-dark(#79740e, #b8bb26);
+  --yellow-dim: light-dark(#b57614, #fabd2f);
+  --blue-dim: light-dark(#076678, #83a598);
+  --purple-dim: light-dark(#8f3f71, #d3869d);
+  --aqua-dim: light-dark(#427b58, #8ec07c);
 }
 
 body {
   background-color: var(--bg-color);
-  padding-left: 15%;
-  padding-right: 15%;
+  container-type: inline-size;
   font-family: "Curier New", monospace;
+  margin: 0;
+  min-height: 100svh;
+
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-*:not( i ) {
+* {
   color: var(--fg-color);
+  border: none;
+  box-sizing: border-box;
 }
 
 h1,
@@ -37,77 +62,119 @@ h2 {
   color: var(--fg-color-reverse);
 }
 
+h2 {
+  cursor: pointer;
+}
+
+.s {
+  transition: background 0.7s ease-in-out;
+}
+
 .s1 {
-  background-color: #d65d0e;
+  background-color: var(--orange);
+
+  &:hover {
+    background-color: var(--orange-dim);
+  }
 }
 
 .s2 {
-  background-color: #cc241d;
+  background-color: var(--red);
+
+  &:hover {
+    background-color: var(--red-dim);
+  }
 }
 
 .s3 {
-  background-color: #98971a;
+  background-color: var(--green);
+
+  &:hover {
+    background-color: var(--green-dim);
+  }
 }
 
 .s4 {
-  background-color: #d79921;
+  background-color: var(--yellow);
+
+  &:hover {
+    background-color: var(--yellow-dim);
+  }
 }
 
 .s5 {
-  background-color: #458588;
+  background-color: var(--blue);
+
+  &:hover {
+    background-color: var(--blue-dim);
+  }
 }
 
 .s6 {
-  background-color: #b16286;
+  background-color: var(--purple);
+
+  &:hover {
+    background-color: var(--purple-dim);
+  }
 }
 
 .s7 {
-  background-color: #689d6a;
+  background-color: var(--aqua);
+
+  &:hover {
+    background-color: var(--aqua-dim);
+  }
 }
 
 .c {
   padding: 1em;
   background-color: var(--bg-color-3);
   text-align: center;
-  /*border-radius: 8px; */
 }
 
 img {
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 img:hover {
   transform: scale(1.5);
   border: none;
   box-shadow: 5px 4px 10px black;
-
 }
 
 .pager {
   margin-top: 5px;
   margin-bottom: 10px;
   padding: 5px;
-  /*border-radius: 8px; */
   color: var(--fg-color-reverse);
-  /*display: flex;
-  justify-content: center;*/
   text-align: center;
 }
 
-.pager button {
+.btn {
+  transition: background 0.4s ease-in-out;
+
+  cursor: pointer;
   background-color: var(--bg-color-reverse);
-  border: none;
   color: var(--fg-color-reverse);
+
+  /* Horizontal and vertical center content */
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: var(--bg-color-3-switch);
+  }
+}
+
+.btn.pager-btn {
   padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
   font-size: 16px;
   font-weight: 900;
   margin: 4px 2px;
-  cursor: pointer;
 
-  &.sel-btn {
+  &.selected {
     background-color: var(--bg-color);
     color: var(--fg-color);
 
@@ -123,28 +190,31 @@ img:hover {
 
 .section {
   display: none;
+
+  &.selected {
+    display: block;
+  }
 }
 
-.float-btns{
-  position: fixed;
-  /*top: 80%;*/
-  bottom: 10px;
-  right: 35px;
+.float-btns {
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: end;
 }
 
-.float-btn{
-  background-color: var(--bg-color-reverse);
-  border: none;
-  color: var(--fg-color-reverse);
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+.btn.float-btn {
   height: 2.5rem;
   width: 2.5rem;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+
+  & i {
+    color: var(--fg-color-reverse);
+  }
 }
 
-.float-btn span{
-  font-size: 1.5rem;
-  color: var(--fg-color-reverse);
+.hidden {
+  display: none !important;
 }

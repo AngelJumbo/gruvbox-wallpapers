@@ -2,7 +2,7 @@ function loadPage(section, page) {
     let buttons = document.getElementById(section).getElementsByTagName("button");
     let currSel;
     for (let i in buttons) {
-        if (buttons[i].classList?.contains("sel-btn")) {
+        if (buttons[i].classList?.contains("selected")) {
             if (page - 1 == i) return;
             else {
                 currSel = buttons[i];
@@ -16,9 +16,9 @@ function loadPage(section, page) {
         .then((data) => {
             document.getElementById(section + "-content").innerHTML = data;
             if (currSel) {
-                currSel.classList.remove("sel-btn");
+                currSel.classList.remove("selected");
             }
-            document.getElementById(section).getElementsByTagName("button")[page - 1].classList.add("sel-btn");
+            document.getElementById(section).getElementsByTagName("button")[page - 1].classList.add("selected");
         });
 }
 
@@ -26,29 +26,50 @@ function activeSection(section) {
     hideAll();
 
     const targetSection = document.getElementById(section);
-    targetSection.style.display = "block";
-    setTimeout(()=>{
-    targetSection.scrollIntoView({ block: "start", behavior: "smooth" });
-    },100)
+    targetSection.focus();
+    targetSection.classList.add("selected");
+    setTimeout(() => {
+        targetSection.scrollIntoView({ block: "start", behavior: "smooth" });
+    }, 100);
 }
 
 function hideAll() {
     document.querySelectorAll(".section").forEach((s) => {
-        s.style.display = "none";
+        s.classList.remove("selected");
+        // s.style.display = "none";
     });
 }
+const HIDDEN_CLASS = "hidden";
 
-
-function switchTheme(){
-    let currTheme = document.documentElement.style.getPropertyValue('color-scheme');
-    console.log(currTheme);
-    if (currTheme == "dark") {
-        document.getElementsByClassName("fa-sun")[0].style.display = "none";
-        document.getElementsByClassName("fa-moon")[0].style.display = "block";
-        document.documentElement.style.setProperty('color-scheme', 'light');
+function hideThemeSwitcher(currentTheme) {
+    if (currentTheme == "dark") {
+        document.getElementById("dark-icon")?.classList.add(HIDDEN_CLASS);
+        document.getElementById("light-icon")?.classList.remove(HIDDEN_CLASS);
     } else {
-        document.getElementsByClassName("fa-moon")[0].style.display = "none";
-        document.getElementsByClassName("fa-sun")[0].style.display = "block";
-        document.documentElement.style.setProperty('color-scheme', 'dark');
+        document.getElementById("light-icon")?.classList.add(HIDDEN_CLASS);
+        document.getElementById("dark-icon")?.classList.remove(HIDDEN_CLASS);
     }
+}
+function getCurrentTheme() {
+    const fromProperty = document.documentElement.style.getPropertyValue("color-scheme");
+    if (fromProperty) return fromProperty;
+    const prefersTheme = window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light";
+    return prefersTheme;
+}
+
+function setTheme(newTheme) {
+    document.documentElement.style.setProperty("color-scheme", newTheme);
+    hideThemeSwitcher(newTheme);
+}
+
+function switchTheme() {
+    let currentTheme = getCurrentTheme();
+    console.debug("Start theme switching to " + currentTheme + " theme");
+    setTheme(currentTheme == "dark" ? "light" : "dark");
+}
+
+function initColorTheme() {
+    const currentTheme = getCurrentTheme();
+    console.debug("Current theme is " + currentTheme + "");
+    setTheme(currentTheme);
 }
