@@ -36,7 +36,6 @@ function activeSection(section) {
 function hideAll() {
     document.querySelectorAll(".section").forEach((s) => {
         s.classList.remove("selected");
-        // s.style.display = "none";
     });
 }
 const HIDDEN_CLASS = "hidden";
@@ -50,26 +49,12 @@ function hideThemeSwitcher(currentTheme) {
         document.getElementById("dark-icon")?.classList.remove(HIDDEN_CLASS);
     }
 }
-function getCurrentTheme() {
-    const fromProperty = document.documentElement.style.getPropertyValue("color-scheme");
-    if (fromProperty) return fromProperty;
-    const prefersTheme = window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light";
-    return prefersTheme;
-}
-
 function setTheme(newTheme) {
     document.documentElement.style.setProperty("color-scheme", newTheme);
     hideThemeSwitcher(newTheme);
 }
 
 function switchTheme() {
-    let currentTheme = getCurrentTheme();
-    console.debug("Start theme switching to " + currentTheme + " theme");
-    setTheme(currentTheme == "dark" ? "light" : "dark");
+    setTheme(document.documentElement.style.getPropertyValue("color-scheme")=="dark"?"light":"dark");
 }
 
-function initColorTheme() {
-    const currentTheme = getCurrentTheme();
-    console.debug("Current theme is " + currentTheme + "");
-    setTheme(currentTheme);
-}

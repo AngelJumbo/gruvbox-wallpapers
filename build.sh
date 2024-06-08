@@ -113,14 +113,18 @@ done
 echo "</main>" >> ./index.html
 echo "<script>
   window.onload = () => {" >> ./index.html
-echo "hideAll();" >> ./index.html
-echo "initColorTheme();" >> ./index.html
+#echo "hideAll();" >> ./index.html
 for section in "${sections[@]}"; do
   echo "    loadPage('$section', 1);" >> ./index.html
 done
 
 echo "
   activeSection('${sections[0]}');
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches){
+    setTheme('dark');
+  }else{
+    setTheme('light');
+  }
 }
 </script>" >> ./index.html
 
