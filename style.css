@@ -32,7 +32,7 @@
 
 body {
   background-color: var(--bg-color);
-  container-type: inline-size;
+  /*container-type: inline-size;*/
   font-family: "Curier New", monospace;
   margin: 0;
   min-height: 100svh;
@@ -137,6 +137,9 @@ img:hover {
 }
 
 .float-btns {
+  position: fixed;
+  bottom: 0;
+  right: 0;
   margin-bottom: 1rem;
   margin-right: 1rem;
   display: flex;

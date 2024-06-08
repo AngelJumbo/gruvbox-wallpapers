@@ -49,7 +49,19 @@ echo "<!DOCTYPE html>
 </head>
 
 <body>
-  
+  <div class='float-btns'>
+    <a href='https://github.com/AngelJumbo/gruvbox-wallpapers' target='_blank' class='btn float-btn' title='Source code' >
+      <span>
+        <i class='fa-brands fa-github'></i>
+      </span>
+    </a>
+    <button onclick='switchTheme()' class='btn float-btn' title='Switch theme'>
+      <span>
+        <i id='light-icon' class='fa-solid fa-sun'></i>
+        <i id='dark-icon' class='fa-solid fa-moon'></i>
+      </span>
+    </button>
+  </div>
   <main>
   <h1>Gruvbox Wallpapers</h1>" > ./index.html
 
@@ -128,22 +140,6 @@ echo "
 }
 </script>" >> ./index.html
 
-echo "
-<footer>
-  <div class='float-btns'>
-    <a href='https://github.com/AngelJumbo/gruvbox-wallpapers' target='_blank' class='btn float-btn' title='Source code' >
-      <span>
-        <i class='fa-brands fa-github'></i>
-      </span>
-    </a>
-    <button onclick='switchTheme()' class='btn float-btn' title='Switch theme'>
-      <span>
-        <i id='light-icon' class='fa-solid fa-sun'></i>
-        <i id='dark-icon' class='fa-solid fa-moon'></i>
-      </span>
-    </button>
-  </div>
-  </footer>" >> ./index.html
 
 echo "
 </body>
