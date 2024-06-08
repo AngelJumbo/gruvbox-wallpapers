@@ -22,7 +22,7 @@
 
 
 write_section_header(){
-  echo "<h2 class='s s$1' onclick='activeSection(\"$2\")' >" >> $3
+  echo "<h2 class='s$1 clickable' onclick='activeSection(\"$2\")' >" >> $3
   echo "$2" | tr a-z A-Z  >> $3
   echo "</h2>" >> $3
 }

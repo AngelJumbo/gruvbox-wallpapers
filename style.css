@@ -36,8 +36,6 @@ body {
   font-family: "Curier New", monospace;
   margin: 0;
   min-height: 100svh;
-
-  /* display: flex; */
   flex-direction: column;
   justify-content: space-evenly;
 }
@@ -56,76 +54,19 @@ h2 {
   text-decoration: none;
 }
 
-.showmore {
-  text-align: center;
-  background-color: var(--bg-color-reverse);
-  color: var(--fg-color-reverse);
-}
-
-h2 {
-  cursor: pointer;
-}
-
-.s {
+.s1, .s2, .s3, .s4, .s5, .s6, .s7 {
   transition: background 0.7s ease-in-out;
   margin-bottom: 0;
+  &:hover { background-color: var(--dim-color); }
 }
 
-.s1 {
-  background-color: var(--orange);
-
-  &:hover {
-    background-color: var(--orange-dim);
-  }
-}
-
-.s2 {
-  background-color: var(--red);
-
-  &:hover {
-    background-color: var(--red-dim);
-  }
-}
-
-.s3 {
-  background-color: var(--green);
-
-  &:hover {
-    background-color: var(--green-dim);
-  }
-}
-
-.s4 {
-  background-color: var(--yellow);
-
-  &:hover {
-    background-color: var(--yellow-dim);
-  }
-}
-
-.s5 {
-  background-color: var(--blue);
-
-  &:hover {
-    background-color: var(--blue-dim);
-  }
-}
-
-.s6 {
-  background-color: var(--purple);
-
-  &:hover {
-    background-color: var(--purple-dim);
-  }
-}
-
-.s7 {
-  background-color: var(--aqua);
-
-  &:hover {
-    background-color: var(--aqua-dim);
-  }
-}
+.s1 { background-color: var(--orange); --dim-color: var(--orange-dim); }
+.s2 { background-color: var(--red); --dim-color: var(--red-dim); }
+.s3 { background-color: var(--green); --dim-color: var(--green-dim); }
+.s4 { background-color: var(--yellow); --dim-color: var(--yellow-dim); }
+.s5 { background-color: var(--blue); --dim-color: var(--blue-dim); }
+.s6 { background-color: var(--purple); --dim-color: var(--purple-dim); }
+.s7 { background-color: var(--aqua); --dim-color: var(--aqua-dim); }
 
 .c {
   padding: 1em;
@@ -157,8 +98,6 @@ img:hover {
   cursor: pointer;
   background-color: var(--bg-color-reverse);
   color: var(--fg-color-reverse);
-
-  /* Horizontal and vertical center content */
   display: inline-flex;
   flex-direction: column;
   justify-content: center;

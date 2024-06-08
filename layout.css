@@ -1,8 +1,7 @@
 main {
     display: flex;
     flex-direction: column;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 0 1rem;
     flex-grow: 1;
 }
 
@@ -10,45 +9,37 @@ footer {
     position: sticky;
     bottom: 0;
     margin-top: 2rem;
-    flex-shrink: 0;
-
     display: flex;
     flex-direction: row;
     justify-content: end;
-    align-content: centers;
 }
 
 @container (min-width: 640px) {
     main {
-        padding-left: 4rem;
-        padding-right: 4rem;
+        padding: 0 4rem;
     }
 }
 
 @container (min-width: 768px) {
     main {
-        padding-left: 8rem;
-        padding-right: 8rem;
+        padding: 0 8rem;
     }
 }
 
 @container (min-width: 1024px) {
     main {
-        padding-left: 12rem;
-        padding-right: 12rem;
+        padding: 0 12rem;
     }
 }
 
 @container (min-width: 1280px) {
     main {
-        padding-left: 14rem;
-        padding-right: 14rem;
+        padding: 0 14rem;
     }
 }
 
 @container (min-width: 1536px) {
     main {
-        padding-left: 18rem;
-        padding-right: 18rem;
+        padding: 0 18rem;
     }
 }
