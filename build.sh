@@ -20,16 +20,44 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
-write_section_header(){
-  echo "<h2 class='s$1 clickable' onclick='activeSection(\"$2\")' >" >> $3
-  echo "$2" | tr a-z A-Z  >> $3
-  echo "</h2>" >> $3
+write_section_header() {
+	echo "<h2 class='s$1 clickable' onclick='activeSection(\"$2\")' >" >>$3
+	echo "$2" | tr a-z A-Z >>$3
+	echo "</h2>" >>$3
 }
 
-write_img(){
-  echo "  <a target='_blank' href='$1'>
-<img loading='lazy' src='$1' alt='$1' width='200'></a>" >> $2
+MINIFIED_IMAGES_DIR='.minified'
+IMAGE_PREVIEW_WIDTH=200
+
+# Returns path to minified img or default img if no tools for minification
+minify_image() {
+	local image=$1
+
+	if ! [ "$(command -v magick)" ]; then
+		echo "${image}"
+		return
+	fi
+
+	local preview_image
+	preview_image="${MINIFIED_IMAGES_DIR}/${image}.min.png"
+
+	mkdir -p "$(dirname "${preview_image}")"
+
+	magick convert "${image}" -resize "${IMAGE_PREVIEW_WIDTH}" -format png -write "${preview_image}"
+	echo "${preview_image}"
+}
+
+write_img() {
+	local image=$1
+	local output=$2
+
+	local preview_image
+	preview_image=$(minify_image "${image}")
+
+	echo "
+  <a target='_blank' href='${image}'>
+    <img loading='lazy' src='${preview_image}' alt='Preview of ${image} image' width='${IMAGE_PREVIEW_WIDTH}'>
+  </a>" >>"${output}"
 }
 
 rm *.html
@@ -63,71 +91,67 @@ echo "<!DOCTYPE html>
     </button>
   </div>
   <main>
-  <h1>Gruvbox Wallpapers</h1>" > ./index.html
+  <h1>Gruvbox Wallpapers</h1>" >./index.html
 
 color=1
 
-maxPerPage=8 
+maxPerPage=8
 
 declare -a sections
 
-for subdir in ./wallpapers/*
-do
-  section="${subdir##*/}"
-  sections+=("$section")
-  write_section_header $color "$section" ./index.html
+for subdir in ./wallpapers/*; do
+	section="${subdir##*/}"
+	sections+=("$section")
+	write_section_header $color "$section" ./index.html
 
+	page=1
+	img_count=0
+	subhtml="${section}_page${page}.html"
+	touch ./$subhtml
 
-  page=1
-  img_count=0
-  subhtml="${section}_page${page}.html"
-  touch ./$subhtml
+	echo "<div class='section' id='$section'>" >>./index.html
 
-  echo "<div class='section' id='$section'>" >> ./index.html
+	echo "<div class='pager'>" >>./index.html
+	countImgs=$(find "$subdir" -type f | wc -l)
+	countImgs=$((countImgs - 1))
+	for i in $(seq 1 $(((countImgs / maxPerPage) + 1))); do
+		echo "<button class='btn pager-btn' onclick='loadPage(\"$section\", $i)'>$i</button>" >>./index.html
+	done
+	echo "</div>" >>./index.html
+	echo "<div  id='$section-content'>" >>./index.html
+	echo "<div class='c'>" >>./$subhtml
+	for wallpaper in ${subdir}/*; do
+		if [ "$img_count" -ge $maxPerPage ]; then
 
-  echo "<div class='pager'>" >> ./index.html
-  countImgs=$(find "$subdir" -type f | wc -l)
-  countImgs=$((countImgs - 1))
-  for i in $(seq 1 $((( $countImgs / $maxPerPage)+1))); do
-    echo "<button class='btn pager-btn' onclick='loadPage(\"$section\", $i)'>$i</button>" >> ./index.html
-  done
-  echo "</div>" >> ./index.html
-  echo "<div  id='$section-content'>" >> ./index.html
-  echo "<div class='c'>" >> ./$subhtml
-  for wallpaper in ${subdir}/*
-  do
-    if [ "$img_count" -ge $maxPerPage ]; then
+			echo "</div>" >>./$subhtml
+			page=$((page + 1))
+			subhtml="${section}_page${page}.html"
+			touch ./$subhtml
 
-      echo "</div>" >> ./$subhtml
-      page=$((page + 1))
-      subhtml="${section}_page${page}.html"
-      touch ./$subhtml
+			echo "<div class='c'>" >>./$subhtml
+			img_count=0
+		fi
 
+		write_img $wallpaper ./$subhtml
+		img_count=$((img_count + 1))
+	done
 
-      echo "<div class='c'>" >> ./$subhtml
-      img_count=0
-    fi
+	echo "</div>" >>./$subhtml
 
-    write_img $wallpaper ./$subhtml
-    img_count=$((img_count + 1))
-  done
+	echo "</div>" >>./index.html
+	echo "</div>" >>./index.html
 
-  echo "</div>" >> ./$subhtml
-
-  echo "</div>" >> ./index.html
-  echo "</div>" >> ./index.html
-
-  color=$((color + 1))
-  if [ "$color" -eq 8 ]; then 
-    color=1
-  fi
+	color=$((color + 1))
+	if [ "$color" -eq 8 ]; then
+		color=1
+	fi
 done
-echo "</main>" >> ./index.html
+echo "</main>" >>./index.html
 echo "<script>
-  window.onload = () => {" >> ./index.html
+  window.onload = () => {" >>./index.html
 #echo "hideAll();" >> ./index.html
 for section in "${sections[@]}"; do
-  echo "    loadPage('$section', 1);" >> ./index.html
+	echo "    loadPage('$section', 1);" >>./index.html
 done
 
 echo "
@@ -138,9 +162,8 @@ echo "
     setTheme('light');
   }
 }
-</script>" >> ./index.html
-
+</script>" >>./index.html
 
 echo "
 </body>
-</html>" >> ./index.html
+</html>" >>./index.html
