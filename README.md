@@ -10,6 +10,7 @@ A place where to find gruvbox theme wallpapers.
 > [!CAUTION]
 > Avoid spaces in names!!!
 
-If your wallpaper does not fit in any of the folders we can debate the creation of a new one.
+> [!TIP]
+> If your wallpaper does not fit in any of the folders we can debate the creation of a new one.
 
 I tend to accept any contributions, but let's keep the site with images that match or look good with the gruvbox's color scheme :').
