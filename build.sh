@@ -20,16 +20,28 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
-write_section_header(){
-  echo "<h2 class='s$1 clickable' onclick='activeSection(\"$2\")' >" >> $3
-  echo "$2" | tr a-z A-Z  >> $3
-  echo "</h2>" >> $3
+generate_thumbnails() {
+  echo "generate thumbnails ..."
+  mkdir -p thumbnails
+  for img in ./wallpapers/*/*; do
+    local thumbnail="thumbnails/${img##*/}"
+    convert "$img" -resize 200x200 "$thumbnail"
+  done
 }
 
-write_img(){
-  echo "  <a target='_blank' href='$1'>
-<img loading='lazy' src='$1' alt='$1' width='200'></a>" >> $2
+write_section_header() {
+  echo "write section header ..."
+  echo "<h2 class='s$1 clickable' onclick='activeSection(\"$2\")' >" >>$3
+  echo "$2" | tr a-z A-Z >>$3
+  echo "</h2>" >>$3
+}
+
+write_img() {
+  echo "write image ..."
+  local img_relative_path=${1#./}
+  local thumbnail="thumbnails/${1##*/}"
+  echo "  <a target='_blank' href='$img_relative_path'>
+<img loading='lazy' src='$thumbnail' alt='$1' width='200'></a>" >>$2
 }
 
 rm *.html
@@ -38,7 +50,6 @@ touch ./index.html
 
 echo "<!DOCTYPE html>
 <html lang='en'>
-
 <head>
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -47,7 +58,6 @@ echo "<!DOCTYPE html>
   <script src='app.js' defer></script>
   <script src='https://kit.fontawesome.com/13865d7982.js' crossorigin='anonymous' defer></script>
 </head>
-
 <body>
   <div class='float-btns'>
     <a href='https://github.com/AngelJumbo/gruvbox-wallpapers' target='_blank' class='btn float-btn' title='Source code' >
@@ -63,71 +73,68 @@ echo "<!DOCTYPE html>
     </button>
   </div>
   <main>
-  <h1>Gruvbox Wallpapers</h1>" > ./index.html
+  <h1>Gruvbox Wallpapers</h1>" >./index.html
 
 color=1
 
-maxPerPage=8 
+maxPerPage=8
 
 declare -a sections
 
-for subdir in ./wallpapers/*
-do
+# 生成缩略图
+generate_thumbnails
+
+for subdir in ./wallpapers/*; do
   section="${subdir##*/}"
   sections+=("$section")
   write_section_header $color "$section" ./index.html
-
 
   page=1
   img_count=0
   subhtml="${section}_page${page}.html"
   touch ./$subhtml
 
-  echo "<div class='section' id='$section'>" >> ./index.html
+  echo "<div class='section' id='$section'>" >>./index.html
 
-  echo "<div class='pager'>" >> ./index.html
+  echo "<div class='pager'>" >>./index.html
   countImgs=$(find "$subdir" -type f | wc -l)
   countImgs=$((countImgs - 1))
-  for i in $(seq 1 $((( $countImgs / $maxPerPage)+1))); do
-    echo "<button class='btn pager-btn' onclick='loadPage(\"$section\", $i)'>$i</button>" >> ./index.html
+  for i in $(seq 1 $((($countImgs / $maxPerPage) + 1))); do
+    echo "<button class='btn pager-btn' onclick='loadPage(\"$section\", $i)'>$i</button>" >>./index.html
   done
-  echo "</div>" >> ./index.html
-  echo "<div  id='$section-content'>" >> ./index.html
-  echo "<div class='c'>" >> ./$subhtml
-  for wallpaper in ${subdir}/*
-  do
+  echo "</div>" >>./index.html
+  echo "<div id='$section-content'>" >>./index.html
+  echo "<div class='c'>" >>./$subhtml
+  for wallpaper in ${subdir}/*; do
     if [ "$img_count" -ge $maxPerPage ]; then
-
-      echo "</div>" >> ./$subhtml
+      echo "</div>" >>./$subhtml
       page=$((page + 1))
       subhtml="${section}_page${page}.html"
       touch ./$subhtml
 
-
-      echo "<div class='c'>" >> ./$subhtml
+      echo "<div class='c'>" >>./$subhtml
       img_count=0
     fi
 
-    write_img $wallpaper ./$subhtml
+    write_img "$wallpaper" "./$subhtml"
     img_count=$((img_count + 1))
   done
 
-  echo "</div>" >> ./$subhtml
+  echo "</div>" >>./$subhtml
 
-  echo "</div>" >> ./index.html
-  echo "</div>" >> ./index.html
+  echo "</div>" >>./index.html
+  echo "</div>" >>./index.html
 
   color=$((color + 1))
-  if [ "$color" -eq 8 ]; then 
+  if [ "$color" -eq 8 ]; then
     color=1
   fi
 done
-echo "</main>" >> ./index.html
+echo "</main>" >>./index.html
 echo "<script>
-  window.onload = () => {" >> ./index.html
-#echo "hideAll();" >> ./index.html
+  window.onload = () => {" >>./index.html
 for section in "${sections[@]}"; do
-  echo "    loadPage('$section', 1);" >> ./index.html
+  echo "    loadPage('$section', 1);" >>./index.html
 done
 
 echo "
@@ -138,9 +145,7 @@ echo "
     setTheme('light');
   }
 }
-</script>" >> ./index.html
+</script>" >>./index.html
 
-
-echo "
-</body>
-</html>" >> ./index.html
+echo "</body>
+</html>" >>./index.html
