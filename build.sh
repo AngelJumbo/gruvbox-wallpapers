@@ -37,8 +37,8 @@ generate_thumbnails() {
       current_image=$((current_image + 1))
       local img_filename="${img##*/}"
       local thumbnail="thumbnails/$section_name/$img_filename"
-      echo "Generating thumbnail ($current_image/$total_images): $img -> $thumbnail"
-      convert "$img" -resize 200x200 "$thumbnail"
+      echo "($current_image/$total_images): $img -> $thumbnail"
+      convert "$img" -resize 300x300 "$thumbnail"
     done
   done
   
