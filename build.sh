@@ -23,9 +23,10 @@
 generate_thumbnails() {
   echo "generate thumbnails ..."
   mkdir -p thumbnails
+  rm thumbnails/*
   for img in ./wallpapers/*/*; do
     local thumbnail="thumbnails/${img##*/}"
-    convert "$img" -resize 200x200 "$thumbnail"
+    magick "$img" -resize 200x200 "$thumbnail"
   done
 }
 
@@ -81,7 +82,6 @@ maxPerPage=8
 
 declare -a sections
 
-# 生成缩略图
 generate_thumbnails
 
 for subdir in ./wallpapers/*; do

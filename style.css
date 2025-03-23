@@ -79,7 +79,7 @@ img {
 }
 
 img:hover {
-  transform: scale(1.5);
+  transform: scale(1.3);
   border: none;
   box-shadow: 5px 4px 10px black;
 }
