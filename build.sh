@@ -38,7 +38,7 @@ generate_thumbnails() {
       local img_filename="${img##*/}"
       local thumbnail="thumbnails/$section_name/$img_filename"
       echo "Generating thumbnail ($current_image/$total_images): $img -> $thumbnail"
-      magick "$img" -resize 200x200 "$thumbnail"
+      convert "$img" -resize 200x200 "$thumbnail"
     done
   done
   
