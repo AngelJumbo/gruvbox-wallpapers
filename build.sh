@@ -37,8 +37,8 @@ generate_thumbnails() {
       current_image=$((current_image + 1))
       local img_filename="${img##*/}"
       local thumbnail="thumbnails/$section_name/$img_filename"
-      echo "($current_image/$total_images): $img -> $thumbnail"
-      magick "$img" -resize 300x300 "$thumbnail"
+      echo "Generating thumbnail ($current_image/$total_images): $img -> $thumbnail"
+      magick "$img" -resize 200x200 "$thumbnail"
     done
   done
   
@@ -54,12 +54,16 @@ write_section_header() {
 
 write_img() {
   echo "write image ..."
-  local img_relative_path=${1#./}
-  local section_name=$(echo "$img_relative_path" | cut -d'/' -f2)
+  # Remove leading './' from path if present
+  local img_path="${1#./}"
+  local section_name=$(echo "$img_path" | cut -d'/' -f2)
   local img_filename="${1##*/}"
-  local thumbnail="thumbnails/$section_name/$img_filename"
-  echo "  <a target='_blank' href='$img_relative_path'>
-<img loading='lazy' src='$thumbnail' alt='$1' width='200'></a>" >>$2
+  
+  # Use web-friendly paths (no leading ./)
+  local thumbnail_path="thumbnails/$section_name/$img_filename"
+  
+  echo "  <a target='_blank' href='$img_path'>
+<img loading='lazy' src='$thumbnail_path' alt='$img_filename' width='200'></a>" >>$2
 }
 
 rm *.html
