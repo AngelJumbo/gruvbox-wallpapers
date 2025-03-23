@@ -23,11 +23,26 @@
 generate_thumbnails() {
   echo "generate thumbnails ..."
   mkdir -p thumbnails
-  rm thumbnails/*
-  for img in ./wallpapers/*/*; do
-    local thumbnail="thumbnails/${img##*/}"
-    magick "$img" -resize 200x200 "$thumbnail"
+  rm -rf thumbnails/*
+  
+  # Count total number of images
+  total_images=$(find ./wallpapers -type f | wc -l)
+  current_image=0
+  
+  for section_dir in ./wallpapers/*; do
+    section_name="${section_dir##*/}"
+    mkdir -p "thumbnails/$section_name"
+    
+    for img in "$section_dir"/*; do
+      current_image=$((current_image + 1))
+      local img_filename="${img##*/}"
+      local thumbnail="thumbnails/$section_name/$img_filename"
+      echo "($current_image/$total_images): $img -> $thumbnail"
+      magick "$img" -resize 300x300 "$thumbnail"
+    done
   done
+  
+  echo "Thumbnail generation complete: $total_images images processed"
 }
 
 write_section_header() {
@@ -40,7 +55,9 @@ write_section_header() {
 write_img() {
   echo "write image ..."
   local img_relative_path=${1#./}
-  local thumbnail="thumbnails/${1##*/}"
+  local section_name=$(echo "$img_relative_path" | cut -d'/' -f2)
+  local img_filename="${1##*/}"
+  local thumbnail="thumbnails/$section_name/$img_filename"
   echo "  <a target='_blank' href='$img_relative_path'>
 <img loading='lazy' src='$thumbnail' alt='$1' width='200'></a>" >>$2
 }
