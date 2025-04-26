@@ -8,7 +8,8 @@ A place where to find gruvbox theme wallpapers.
 3. Make a pull request.
 
 > [!CAUTION]
-> Avoid spaces in names!!!
+> - Use files under 25mg
+> - Avoid spaces in names
 
 > [!TIP]
 > If your wallpaper does not fit in any of the folders we can debate the creation of a new one.
