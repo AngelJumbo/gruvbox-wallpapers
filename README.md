@@ -15,3 +15,7 @@ A place where to find gruvbox theme wallpapers.
 > If your wallpaper does not fit in any of the folders we can debate the creation of a new one.
 
 I tend to accept any contributions, but let's keep the site with images that match or look good with the gruvbox's color scheme :').
+
+## Disclaimer 
+
+Most of the images shared here are community contributions, and their original sources are often unknown. If you are the rightful owner of any image and would like it removed, please contact me by opening an issue. For any use beyond personal scope, I recommend performing a reverse image search to verify the origin.
