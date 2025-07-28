@@ -1,3 +1,4 @@
+/*style.css*/
 @import url("/layout.css");
 
 :root {
@@ -137,6 +138,7 @@ img:hover {
 }
 
 .float-btns {
+  z-index: 10;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -160,4 +162,178 @@ img:hover {
 
 .hidden {
   display: none !important;
+}
+
+/* Add these styles to your existing style.css */
+
+.subsection-theme-switch {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.btn.subsection-theme-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 4px;
+  border-radius: 4px;
+  
+  &.selected {
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    border: 2px solid var(--fg-color);
+  }
+  
+  &:not(.selected) {
+    opacity: 0.7;
+  }
+}
+
+.subsection-content {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Ensure subsection content containers are properly spaced */
+.section .subsection-content + .subsection-content {
+  margin-top: 0;
+}
+
+/* Enhanced theme switch styles - Add to your style.css */
+
+.subsection-theme-switch {
+  text-align: center;
+  margin: 15px 0 20px 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-10px);
+}
+
+/* Show theme switch only when section is selected */
+.section.selected .subsection-theme-switch {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Theme switch container styled like a toggle */
+.theme-toggle-container {
+  display: inline-flex;
+  background-color: var(--bg-color-3);
+  border-radius: 25px;
+  padding: 4px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--fg-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle-container::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: linear-gradient(135deg, var(--bg-color-reverse), var(--bg-color-3-switch));
+  border-radius: 20px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.theme-toggle-container.light-active::before {
+  transform: translateX(100%);
+}
+
+.btn.subsection-theme-btn {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--fg-color);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
+  border-radius: 20px;
+  min-width: 80px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &:hover {
+    background: transparent;
+  }
+  
+  &.selected {
+    color: var(--fg-color-reverse);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  &:not(.selected) {
+    opacity: 0.7;
+  }
+  
+  /* Add subtle glow effect for selected button */
+  &.selected {
+    position: relative;
+  }
+  
+  &.selected::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+}
+
+/* Animation for button text */
+.btn.subsection-theme-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn.subsection-theme-btn::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease;
+  opacity: 0;
+}
+
+.btn.subsection-theme-btn.selected::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 640px) {
+  .btn.subsection-theme-btn {
+    padding: 10px 20px;
+    font-size: 12px;
+    min-width: 70px;
+  }
+  
+  .theme-toggle-container {
+    padding: 3px;
+  }
+}
+
+/* Dark mode specific adjustments */
+@media (prefers-color-scheme: dark) {
+  .theme-toggle-container {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  
+  .theme-toggle-container::before {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
 }

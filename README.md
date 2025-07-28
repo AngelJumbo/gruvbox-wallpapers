@@ -5,6 +5,7 @@ A place where to find gruvbox theme wallpapers.
 
 1. Fork the project.
 2. Add the wallpapers that you have in their respective folder.
+3. For light variants: Place the light-themed wallpapers in a light/ subfolder within the category.
 3. Make a pull request.
 
 > [!CAUTION]
