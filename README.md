@@ -9,7 +9,7 @@ A place where to find gruvbox theme wallpapers.
 3. Make a pull request.
 
 > [!CAUTION]
-> - Use files under 25mg
+> - Use files under 25mb
 > - Avoid spaces in names
 
 > [!TIP]
