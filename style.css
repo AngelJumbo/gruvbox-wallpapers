@@ -313,6 +313,10 @@ img:hover {
   transform: translate(-50%, -50%) scale(1.05);
 }
 
+svg {
+    stroke: var(--fg-color-reverse) !important;
+}
+
 /* Responsive adjustments */
 @media screen and (max-width: 640px) {
   .btn.subsection-theme-btn {
