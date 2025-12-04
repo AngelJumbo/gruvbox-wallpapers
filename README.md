@@ -17,6 +17,48 @@ A place where to find gruvbox theme wallpapers.
 
 I tend to accept any contributions, but let's keep the site with images that match or look good with the gruvbox's color scheme :').
 
+
+## Installation 🛠️
+
+Bringing Gruvbox Wallpapers to your setup is quick and easy. Follow these simple steps:
+
+1. **Clone the repository**:
+```bash
+git clone https://github.com/AngelJumbo/gruvbox-wallpapers.git
+```
+
+### OR
+
+2. **Use [nix flakes](https://wiki.nixos.org/wiki/Flakes)**:
+
+2.1 Add the following to your `flake.nix` file:
+   
+```nix
+inputs = {
+  gruvbox-wallpapers.url = "github:AngelJumbo/gruvbox-wallpapers";
+  # ...
+};
+```
+
+Then, in your Home Manager configuration:
+
+```nix
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  home.file = {
+    "path/to/dir" = {
+      source = inputs.gruvbox-wallpapers.packages."${pkgs.stdenv.hostPlatform.system}".default;
+      recursive = true;
+    };
+  };
+}
+```
+
+Now, navigate to the wallpapers folder and choose the one that fits your mood! 📂
+
 ## Disclaimer 
 
 Most of the images shared here are community contributions, and their original sources are often unknown. If you are the rightful owner of any image and would like it removed, please contact me by opening an issue. For any use beyond personal scope, I recommend performing a reverse image search to verify the origin.
