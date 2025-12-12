@@ -18,20 +18,11 @@ A place where to find gruvbox theme wallpapers.
 I tend to accept any contributions, but let's keep the site with images that match or look good with the gruvbox's color scheme :').
 
 
-## Installation 🛠️
+## Nix package
 
-Bringing Gruvbox Wallpapers to your setup is quick and easy. Follow these simple steps:
+1. **Use [nix flakes](https://wiki.nixos.org/wiki/Flakes)**:
 
-1. **Clone the repository**:
-```bash
-git clone https://github.com/AngelJumbo/gruvbox-wallpapers.git
-```
-
-### OR
-
-2. **Use [nix flakes](https://wiki.nixos.org/wiki/Flakes)**:
-
-2.1 Add the following to your `flake.nix` file:
+2. Add the following to your `flake.nix` file:
    
 ```nix
 inputs = {
@@ -40,7 +31,7 @@ inputs = {
 };
 ```
 
-Then, in your Home Manager configuration:
+3. Then, in your Home Manager configuration:
 
 ```nix
 {
@@ -56,8 +47,6 @@ Then, in your Home Manager configuration:
   };
 }
 ```
-
-Now, navigate to the wallpapers folder and choose the one that fits your mood! 📂
 
 ## Disclaimer 
 
