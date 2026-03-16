@@ -5,16 +5,48 @@ A place where to find gruvbox theme wallpapers.
 
 1. Fork the project.
 2. Add the wallpapers that you have in their respective folder.
+3. For light variants: Place the light-themed wallpapers in a light/ subfolder within the category.
 3. Make a pull request.
 
 > [!CAUTION]
-> - Use files under 25mg
+> - Use files under 25mb
 > - Avoid spaces in names
 
 > [!TIP]
 > If your wallpaper does not fit in any of the folders we can debate the creation of a new one.
 
 I tend to accept any contributions, but let's keep the site with images that match or look good with the gruvbox's color scheme :').
+
+
+## Nix package
+
+1. **Use [nix flakes](https://wiki.nixos.org/wiki/Flakes)**:
+
+2. Add the following to your `flake.nix` file:
+   
+```nix
+inputs = {
+  gruvbox-wallpapers.url = "github:AngelJumbo/gruvbox-wallpapers";
+  # ...
+};
+```
+
+3. Then, in your Home Manager configuration:
+
+```nix
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  home.file = {
+    "path/to/dir" = {
+      source = inputs.gruvbox-wallpapers.packages."${pkgs.stdenv.hostPlatform.system}".default;
+      recursive = true;
+    };
+  };
+}
+```
 
 ## Disclaimer 
 
